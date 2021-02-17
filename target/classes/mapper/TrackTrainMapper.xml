@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.TrackTrainMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.TrackTrain">
+        <id column="id" property="id" />
+        <result column="class_id" property="classId" />
+        <result column="track_contents" property="trackContents" />
+        <result column="actual_class_date" property="actualClassDate" />
+        <result column="current_location" property="currentLocation" />
+        <result column="track_time" property="trackTime" />
+        <result column="except_early_time" property="exceptEarlyTime" />
+        <result column="except_last_time" property="exceptLastTime" />
+        <result column="state_value" property="stateValue" />
+        <result column="district" property="district" />
+        <result column="station_one_name" property="stationOneName" />
+        <result column="station_one_distance" property="stationOneDistance" />
+        <result column="station_two_name" property="stationTwoName" />
+        <result column="station_two_distance" property="stationTwoDistance" />
+        <result column="station_thr_name" property="stationThrName" />
+        <result column="station_thr_distance" property="stationThrDistance" />
+        <result column="station_fou_name" property="stationFouName" />
+        <result column="station_fou_distance" property="stationFouDistance" />
+        <result column="remark" property="remark" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="name_cn"  property="createBy"   />
+        <result column="name_en"  property="updateBy"   />
+    </resultMap>
+
+    <resultMap type="com.zih.booking.vo.EmaiMqVo" id="emaiMqVoResult">
+        <result property="id"    column="id"    />
+        <result property="smtpSever"    column="smtp_sever"    />
+        <result property="smtpPort"    column="smtp_port"    />
+        <result property="emailAuthentication"    column="email_authentication"    />
+        <result property="name"    column="name"    />
+        <result property="account"    column="account"    />
+        <result property="password"    column="password"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="goCome"    column="go_come"    />
+        <result property="consolidationType"    column="consolidation_type"    />
+        <result property="oddEven"    column="odd_even"    />
+        <result property="isCustom"    column="is_custom"    />
+        <result property="lineType"    column="line_type"    />
+    </resultMap>
+
+    <select id="selectTtList" parameterType="String" resultMap="BaseResultMap">
+        select tt.id, tt.class_id,tt.track_time,tt.update_time, tt.state_value,tt.current_location, tt.station_one_name, tt.station_one_distance,
+        tt.station_two_name, tt.station_two_distance, tt.station_thr_name, tt.station_thr_distance, tt.station_fou_name,tt.station_fou_distance, tt.remark,
+        bc.class_EastAndWest, bl.name_cn as class_BlockTrain,bs.name_cn,bs.name_en,bc.line_typeid, tt.except_early_time,tt.except_last_time
+        from track_train tt
+        left join busi_classes bc on tt.class_id=bc.class_ID
+        left join busi_linesite bl on bl.id=bc.line_id
+        left join busi_site bs on bl.class_t_port=bs.code
+        <where>
+            tt.class_id=#{classId} and tt.del_flag='0'
+            <if test="batchTime==null or  batchTime==''">
+                and actual_class_date =substring_index(#{actualDate},'-',1)
+            </if>
+            <if test="batchTime!=null and batchTime!=''">
+                and ( actual_class_date  =substring_index(#{actualDate},'-',1) and tt.update_time &lt; #{batchTime})
+                or  (actual_class_date =substring_index(#{actualDate},'-D',1) and tt.update_time &gt; #{batchTime})
+            </if>
+        </where>
+        order by tt.update_time desc
+    </select>
+
+
+    <select id="selectTrainListByTgs" parameterType="com.zih.booking.model.TrackGoodsStatus" resultMap="BaseResultMap">
+        select tt.id, tt.class_id,tt.track_time,tt.update_time, tt.state_value,tt.current_location, tt.station_one_name, tt.station_one_distance,
+        tt.station_two_name, tt.station_two_distance, tt.station_thr_name, tt.station_thr_distance, tt.station_fou_name,tt.station_fou_distance, tt.remark,
+        bc.class_EastAndWest, bl.name_cn as class_BlockTrain,bs.name_cn,bs.name_en,bc.line_typeid, tt.except_early_time,tt.except_last_time
+        from track_train tt
+        left join busi_classes bc on tt.class_id=bc.class_ID
+        left join busi_linesite bl on bl.id=bc.line_id
+        left join busi_site bs on bl.class_t_port=bs.code
+        <where>
+            tt.class_id=#{actualClassId} and tt.del_flag='0'
+            <if test="batchDate==null or  batchDate==''">
+                and actual_class_date=substring_index(#{actualClassDate},'-',1)
+            </if>
+            <if test="batchDate!=null and batchDate!=''">
+                and ( actual_class_date =substring_index(#{batchDate},'-',1) and tt.update_time &lt; #{batchTime})
+                or  (actual_class_date =substring_index(#{batchDate},'-D',1) and tt.update_time &gt; #{batchTime})
+            </if>
+            <if test="batchDate2!=null and batchDate2!=''">
+                and ( actual_class_date =substring_index(#{batchDate},'-D',1) and tt.update_time &lt; #{batchTime2})
+                or  (actual_class_date =substring_index(#{batchDate2},'-D',1) and tt.update_time &gt; #{batchTime2})
+            </if>
+            <if test="batchDate3!=null and batchDate3!=''">
+                and ( actual_class_date =substring_index(#{batchDate2},'-D',1) and tt.update_time &lt; #{batchTime3})
+                or  (actual_class_date =substring_index(#{batchDate3},'-D',1) and tt.update_time &gt; #{batchTime3})
+            </if>
+            <if test="batchDate4!=null and batchDate4!=''">
+                and ( actual_class_date =substring_index(#{batchDate3},'-D',1) and tt.update_time &lt; #{batchTime4})
+                or  (actual_class_date =substring_index(#{batchDate4},'-D',1) and tt.update_time &gt; #{batchTime4})
+            </if>
+            <if test="abnormalTime!=null">
+                and tt.update_time &lt; #{abnormalTime}
+            </if>
+        </where>
+        order by tt.update_time desc
+    </select>
+
+
+    <select id="selectEmail" parameterType="com.zih.booking.vo.EmaiMqVo" resultMap="emaiMqVoResult">
+        select id, smtp_sever, smtp_port, email_authentication, name, account, password, del_flag,
+        go_come, consolidation_type, odd_even, is_custom,line_type from email_set
+        <where>
+            <if test="goCome != null "> and go_come = #{goCome}</if>
+            <if test="consolidationType != null "> and consolidation_type = #{consolidationType}</if>
+            <if test="oddEven != null"> and odd_even = #{oddEven}</if>
+            <if test="isCustom != null"> and is_custom = #{isCustom}</if>
+            <if test="lineType != null "> and line_type = #{lineType}</if>
+        </where>
+    </select>
+
+</mapper>

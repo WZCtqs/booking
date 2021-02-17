@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiShippingorderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiShippingorder">
+        <id column="order_ID" property="orderId"/>
+        <result column="stationID" property="stationID"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="booking_service" property="bookingService"/>
+        <result column="order_audit_belongTo" property="orderAuditBelongto"/>
+        <result column="order_audit_createdate" property="orderAuditCreatedate"/>
+        <result column="order_audit_userid" property="orderAuditUserid"/>
+        <result column="order_audit_username" property="orderAuditUsername"/>
+        <result column="class_ID" property="classId"/>
+        <result column="Class_date" property="classDate"/>
+        <result column="Class_site" property="classSite"/>
+        <result column="order_class_bh" property="orderClassBh"/>
+        <result column="line_typeid" property="lineTypeid"/>
+        <result column="class_number" property="classNumber"/>
+        <result column="class_EastAndWest" property="classEastandwest"/>
+        <result column="order_uploadSite" property="orderUploadsite"/>
+        <result column="order_unloadSite" property="orderUnloadsite"/>
+        <result column="order_uploadCode" property="orderUploadcode"/>
+        <result column="order_unloadCode" property="orderUnloadcode"/>
+        <result column="dict_ID" property="dictId"/>
+        <result column="dict_name" property="dictName"/>
+        <result column="order_deptName" property="orderDeptname"/>
+        <result column="order_merchandiser" property="orderMerchandiser"/>
+        <result column="order_merchandiser_id" property="orderMerchandiserId"/>
+        <result column="order_isTicket" property="orderIsticket"/>
+        <result column="client_ID" property="clientId"/>
+        <result column="client_unit" property="clientUnit"/>
+        <result column="client_contacts" property="clientContacts"/>
+        <result column="client_tel" property="clientTel"/>
+        <result column="client_email" property="clientEmail"/>
+        <result column="client_address" property="clientAddress"/>
+        <result column="client_order_bindingAddress" property="clientOrderBindingaddress"/>
+        <result column="client_order_bindingWay" property="clientOrderBindingway"/>
+        <result column="client_order_remarks" property="clientOrderRemarks"/>
+        <result column="container_boxAmount" property="containerBoxamount"/>
+        <result column="container_type" property="containerType"/>
+        <result column="container_typeval" property="containerTypeval"/>
+        <result column="client_order_repayContainer" property="clientOrderRepaycontainer"/>
+        <result column="ship_order_isDispatch" property="shipOrderIsdispatch"/>
+        <result column="ship_order_id" property="shipOrderId"/>
+        <result column="ship_oreder_name" property="shipOrederName"/>
+        <result column="ship_oreder_contacts" property="shipOrederContacts"/>
+        <result column="ship_oreder_email" property="shipOrederEmail"/>
+        <result column="ship_oreder_phone" property="shipOrederPhone"/>
+        <result column="ship_oreder_address" property="shipOrederAddress"/>
+        <result column="ship_order_binningWay" property="shipOrderBinningway"/>
+        <result column="ship_order_unloadAddress" property="shipOrderUnloadaddress"/>
+        <result column="ship_order_unloadContacts" property="shipOrderUnloadcontacts"/>
+        <result column="ship_order_unloadWay" property="shipOrderUnloadway"/>
+        <result column="ship_order_unloadWay_email" property="shipOrderUnloadwayEmail"/>
+        <result column="ship_order_unloadTime" property="shipOrderUnloadtime"/>
+        <result column="ship_order_sendTime" property="shipOrderSendtime"/>
+        <result column="receive_order_id" property="receiveOrderId"/>
+        <result column="receive_order_name" property="receiveOrderName"/>
+        <result column="receive_order_contacts" property="receiveOrderContacts"/>
+        <result column="receive_order_mail" property="receiveOrderMail"/>
+        <result column="receive_order_phone" property="receiveOrderPhone"/>
+        <result column="receive_order_address" property="receiveOrderAddress"/>
+        <result column="receive_order_isClearance" property="receiveOrderIsclearance"/>
+        <result column="receive_order_isPart" property="receiveOrderIspart"/>
+        <result column="receive_order_zihemail" property="receiveOrderZihemail"/>
+        <result column="receive_order_fb_status" property="receiveOrderFbStatus"/>
+        <result column="receive_order_PartAddress" property="receiveOrderPartaddress"/>
+        <result column="receive_order_receiveEmail" property="receiveOrderReceiveemail"/>
+        <result column="receive_order_en_name" property="receiveOrderEnName"/>
+        <result column="receive_order_en_contacts" property="receiveOrderEnContacts"/>
+        <result column="receive_order_en_email" property="receiveOrderEnEmail"/>
+        <result column="receive_order_en_phone" property="receiveOrderEnPhone"/>
+        <result column="receive_order_en_address" property="receiveOrderEnAddress"/>
+        <result column="receive_order_Ename" property="receiveOrderEname"/>
+        <result column="receive_order_Econtacts" property="receiveOrderEcontacts"/>
+        <result column="receive_order_Eemail" property="receiveOrderEemail"/>
+        <result column="receive_order_Ephone" property="receiveOrderEphone"/>
+        <result column="receive_order_Eaddress" property="receiveOrderEaddress"/>
+        <result column="Etx_Company" property="etxCompany"/>
+        <result column="Eduty" property="Eduty"/>
+        <result column="Etx_name" property="etxName"/>
+        <result column="receive_order_zihcontacts" property="receiveOrderZihcontacts"/>
+        <result column="receive_order_zihtel" property="receiveOrderZihtel"/>
+        <result column="goods_cannotPileUp" property="goodsCannotpileup"/>
+        <result column="goods_fragile" property="goodsFragile"/>
+        <result column="goods_general" property="goodsGeneral"/>
+        <result column="IsExamline" property="IsExamline"/>
+        <result column="IsConsolidation" property="IsConsolidation"/>
+        <result column="createdate" property="createdate"/>
+        <result column="createuserid" property="createuserid"/>
+        <result column="createusername" property="createusername"/>
+        <result column="ship_th_cost" property="shipThCost"/>
+        <result column="client_bg_cost" property="clientBgCost"/>
+        <result column="receive_hx_address" property="receiveHxAddress"/>
+        <result column="receive_xg_cost" property="receiveXgCost"/>
+        <result column="receive_qg_cost" property="receiveQgCost"/>
+        <result column="ship_jz_cost" property="shipJzCost"/>
+        <result column="receive_sh_cost" property="receiveShCost"/>
+        <result column="siteCost" property="siteCost"/>
+        <result column="client_tjr" property="clientTjr"/>
+        <result column="client_tjr_id" property="clientTjrId"/>
+        <result column="ship_fh_site" property="shipFhSite"/>
+        <result column="ship_hyd" property="shipHyd"/>
+        <result column="receive_hyd" property="receiveHyd"/>
+        <result column="ship_th_type" property="shipThType"/>
+        <result column="ship_th_type_id" property="shipThTypeId"/>
+        <result column="ship_zs_type" property="shipZsType"/>
+        <result column="ship_zs_type_id" property="shipZsTypeId"/>
+        <result column="yuyan" property="yuyan"/>
+        <result column="tj_time" property="tjTime"/>
+        <result column="tj_f_time" property="tjFTime"/>
+        <result column="zx_number" property="zxNumber"/>
+        <result column="isupdate" property="isupdate"/>
+        <result column="IsPhone" property="IsPhone"/>
+        <result column="zx_THCost_Currency" property="zxThcostCurrency"/>
+        <result column="ship_th_cost_NO" property="shipThCostNo"/>
+        <result column="YW_Number" property="ywNumber"/>
+        <result column="IsGetin" property="IsGetin"/>
+        <result column="TurnCount" property="TurnCount"/>
+        <result column="TotalTurnCount" property="TotalTurnCount"/>
+        <result column="TotalTurnCountAvg" property="TotalTurnCountAvg"/>
+        <result column="Actual_classDate" property="actualClassdate"/>
+        <result column="YW_Feedback" property="ywFeedback"/>
+        <result column="detailed_address" property="detailedAddress"/>
+        <result column="putoff_class" property="putoffClass"/>
+        <result column="Cost_verify" property="costVerify"/>
+        <result column="DC_gaidan_state" property="dcGaidanState"/>
+        <result column="receive_sh_cost_id" property="receiveShCostId"/>
+        <result column="receive_order_Email" property="receiveOrderEmail"/>
+        <result column="xg_costCurrency" property="xgCostcurrency"/>
+        <result column="qg_costCurrency" property="qgCostcurrency"/>
+        <result column="sh_costCurrency" property="shCostcurrency"/>
+        <result column="siteCost_Currency" property="sitecostCurrency"/>
+        <result column="Exame_time" property="exameTime"/>
+        <result column="gd_boat" property="gdBoat"/>
+        <result column="gd_boaturl" property="gdBoaturl"/>
+        <result column="GD_cjsRemark" property="gdCjsremark"/>
+        <result column="gd_voucherUrl" property="gdVoucherurl"/>
+        <result column="gd_voucher" property="gdVoucher"/>
+        <result column="train_state" property="trainState"/>
+        <result column="inquiry_record_id" property="inquiryRecordId"/>
+        <result column="pick_up_box_fee" property="pickUpBoxFee"/>
+        <result column="return_box_fee" property="returnBoxFee"/>
+        <result column="limitation" property="limitation"/>
+        <result column="truck_type" property="truckType"/>
+        <result column="ConsignorC" property="consignorc"/>
+    </resultMap>
+
+    <!--运综-->
+    <select id="selectTrainList" resultType="com.zih.booking.response.TrainListResponse">
+        SELECT
+        a.order_number AS orderNumber,
+        a.class_EastAndWest AS classEastAndWest,
+        a.ship_oreder_contacts AS shipOrederContacts,
+        a.Class_date AS classDate,
+        a.IsConsolidation,
+        b.goods_name AS goodsName,
+        b.goods_en_name AS goodsEnName,
+        d.box_num as xianghao,
+        d.is_normal AS isNormal,
+        a.order_ID AS orderId,
+        a.order_audit_createdate AS createTime
+        FROM
+        busi_shippingorder a
+        LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+        LEFT JOIN track_goods_status d ON d.order_id = a.order_ID and d.del_flag=0
+       <!-- and d.id=
+        (select id from track_goods_status d where a.order_ID=d.order_id
+        <if test="xianghao!=null and xianghao!=''">
+            and d.box_num =#{xianghao}
+        </if>
+        limit 1)-->
+        where a.IsExamline="1"
+        and a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="classDate!=null and classDate!=''">
+            and DATE_FORMAT(a.class_Date,'%Y-%m-%d') =#{classDate}
+        </if>
+        <if test="isConsolidation!=null and isConsolidation!=''">
+            and a.IsConsolidation =#{isConsolidation}
+        </if>
+        <if test="xianghao!=null and xianghao!=''">
+            and d.box_num =#{xianghao}
+        </if>
+        <if test="classEastAndWest!=null and classEastAndWest!=''">
+            and a.class_EastAndWest =#{classEastAndWest}
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number =#{orderNumber}
+        </if>
+        <if test="shipOrederContacts!=null and shipOrederContacts!=''">
+            and a.ship_oreder_contacts =#{shipOrederContacts}
+        </if>
+        order by a.Class_date desc
+    </select>
+    <!--运综详情-->
+    <select id="selectTrainDetail" resultType="com.zih.booking.response.TrainDetailResponse">
+     SELECT
+	a.order_ID AS orderId,
+	a.order_number AS orderNumber,
+	a.order_uploadSite AS orderUploadsite,
+	a.order_unloadSite AS orderUnloadsite,
+	a.order_audit_createdate AS createTime,
+  b.class_ETime as expectTime,
+ c.create_time as updateTime,
+  a. receive_order_receiveEmail as receiveEmail,
+   a.class_ID as  classId
+FROM
+	busi_shippingorder a LEFT JOIN busi_classes b on a.class_ID=b.class_ID
+	left join  track_two_level c on a.order_ID=c.order_id and c.id=(SELECT id from track_two_level where  order_id= #{orderId} order by  sort desc limit 1)
+WHERE
+	a.order_ID = #{orderId}
+    </select>
+    <!--单证-->
+    <select id="selectDocList" resultType="com.zih.booking.response.DocumentFileResponse">
+        SELECT
+            a.order_number AS orderNumber,
+            a.class_EastAndWest AS classEastAndWest,
+            a.ship_oreder_contacts AS shipOrederContacts,
+            a.Class_date AS classDate,
+            a.order_ID AS orderId,
+            a.YW_Number AS YMNumber,
+            a.IsConsolidation,
+            a.order_uploadSite AS orderUploadsite,
+            a.order_unloadSite AS orderUnloadsite,
+            a.order_audit_createdate AS createTime,
+            a.container_type AS containerType,
+            a.container_boxAmount AS containerCount,
+            a.booking_service AS bookingService,
+            a.ship_order_binningWay AS shipOrderBinningWay,
+            b.goods_KGS AS goodsKGS,
+            b.goods_CBM AS goodsCBM,
+            b.goods_name AS goodsName,
+            c.box_num AS xianghao
+        from busi_shippingorder a
+        left join busi_shippingorder_goods b on a.order_ID=b.order_ID
+        left join track_goods_status c on a.order_ID=c.order_id
+        and c.id=
+        (select id from track_goods_status c where a.order_ID=c.order_id limit 1)
+        where a.IsExamline="1" 
+        and a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="classDate!=null">
+            and DATE_FORMAT(a.Class_date,'%Y-%m-%d') =DATE_FORMAT(#{classDate},'%Y-%m-%d')
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number like CONCAT('%','${orderNumber}','%' )
+        </if>
+        <if test="orderId!=null and orderId!=''">
+            and a.order_ID = #{orderId}
+        </if>
+        <if test="eastOrWest != null">
+            and a.class_EastAndWest = #{eastOrWest}
+        </if>
+        <if test="khId!=null">
+            and a.kh_id = #{khId}
+        </if>
+        order by a.order_audit_createdate desc
+    </select>
+    <!--结算-->
+    <select id="selectSetList" resultType="com.zih.booking.response.SettlementResponse">
+        select a.order_number as orderNumber,a.class_EastAndWest as classEastAndWest,a.ship_oreder_contacts as
+        shipOrederContacts,a.Class_date as classDate, a.order_ID as orderId,a.YW_Number as
+        YMNumber,a.container_boxAmount
+        ascontainerBoxAmount,d.class_bh as orderClassBh,a.ship_order_unloadAddress as
+        shipOrderUnloadAddress,a.ship_order_unloadTime as shipOrderUnloadTime,
+        a.IsConsolidation as IsConsolidation,c.xiangxing,b.goods_name as goodsName,c.box_num as
+        xianghao,a.order_uploadSite as
+        orderUploadsite,a.order_unloadSite as orderUnloadsite,a.order_audit_createdate as createTime,b.goods_KGS as
+        goodsKGS,b.goods_CBM as goodsCBM,a.container_type as containerType,a.Actual_classDate as
+        classEndTime,a.Cost_verify as
+        costVerify
+        from busi_shippingorder a
+        left join busi_shippingorder_goods b on a.order_ID=b.order_ID
+        left join track_goods_status c on a.order_ID=c.order_id
+        left join busi_classes d on a.class_ID=d.class_ID
+        <where>
+            <if test="clientId!=null and clientId!=''">
+                and a.client_ID =#{clientId}
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                and a.Class_date &gt;= #{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and a.Class_date &lt;= #{endTime}
+            </if>
+            <if test="orderNumber!=null and orderNumber!=''">
+                and a.order_number like CONCAT('%','${orderNumber}','%' )
+            </if>
+            <if test="isConsolidation!=null and isConsolidation!=''">
+                and a.IsConsolidation =#{isConsolidation}
+            </if>
+            <if test="classEastAndWest!=null and classEastAndWest!=''">
+                and a.class_EastAndWest =#{classEastAndWest}
+            </if>
+            <if test="containerType!=null and containerType!=''">
+                and a.container_type =#{containerType}
+            </if>
+            <if test="orderUploadSite!=null and orderUploadSite!=''">
+                and a.order_uploadSite =#{orderUploadSite}
+            </if>
+            <if test="orderUnloadSite!=null and orderUnloadSite!=''">
+                and a.order_unloadSite =#{orderUnloadSite}
+            </if>
+            <if test="costVerify!=null and costVerify!=''">
+                and a.Cost_verify =#{costVerify}
+            </if>
+        </where>
+        order by a.order_audit_createdate desc
+    </select>
+
+    <!--拼箱入仓 -->
+    <select id="selectWareList" resultType="com.zih.booking.response.WarehouseResponse">
+        select * from
+        (SELECT
+            a.order_number AS orderNumber,
+            a.class_EastAndWest AS classEastAndWest,
+            a.client_tjr,
+            a.Class_date AS classDate,
+            a.order_ID AS orderId,
+            a.client_order_remarks AS clientOrderRemarks,
+            a.goods_cannotPileUp AS goodsCannotPileUp, -- 是否堆叠
+            a.goods_fragile AS goodsFragile,  -- 是否易碎
+            b.goods_name AS goodsName, -- 货物品名
+            b.goods_en_name AS goodsEnName, -- 货物品名（EN）
+            b.goods_number as totalNumber,
+            b.goods_CBM as totalCBM,
+            b.goods_KGS as totalKGS,
+            c.px_packing as goodsPacking, -- 包装方式
+            c.px_number as goodsNumber, -- 数量
+            c.px_LongAndWide as goodsKGS, -- 总重
+            c.px_box_number as lb14, -- 毛重
+            c.px_box_type as goodsStandard, -- 规格
+            c.px_volume as goodsCBM, -- 实际体积
+            c.px_Settlement_volume as lb152 -- 结算体积
+        FROM
+        busi_shippingorder a
+        LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+        LEFT JOIN  doc_order_inboxcheck c on c.order_id = a.order_ID
+        where a.IsExamline="1" and a.class_EastAndWest = '0'
+        and a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="beginTime!=null and beginTime!=''">
+            and a.Class_date &gt;= #{beginTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and a.Class_date &lt;= #{endTime}
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number like CONCAT('%','${orderNumber}','%' )
+        </if>
+        <if test="classEastAndWest!=null and classEastAndWest!=''">
+            and a.class_EastAndWest =#{classEastAndWest}
+        </if>
+        union
+        SELECT
+            a.order_number AS orderNumber,
+            a.class_EastAndWest AS classEastAndWest,
+            a.client_tjr,
+            a.Class_date AS classDate,
+            a.order_ID AS orderId,
+            a.client_order_remarks AS clientOrderRemarks,
+            a.goods_cannotPileUp AS goodsCannotPileUp, -- 是否堆叠
+            a.goods_fragile AS goodsFragile,  -- 是否易碎
+            b.goods_name AS goodsName, -- 货物品名
+            b.goods_en_name AS goodsEnName, -- 货物品名（EN）
+            b.goods_number as totalNumber,
+            b.goods_CBM as totalCBM,
+            b.goods_KGS as totalKGS,
+            "" as goodsPacking, -- 包装方式
+            g.ArriveInfoactual as goodsNumber, -- 数量
+            sum( px_weight ) AS goodsKGS,-- 总重
+            "" AS lb14,-- 毛重
+            g.MeasureDimention AS goodsStandard,-- 规格
+            sum( px_volume ) AS goodsCBM,-- 实际体积
+            sum( px_settlement_volume ) AS lb152 -- 结算体积
+        FROM
+        busi_shippingorder a
+        LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+        LEFT JOIN  doc_gwcz_arrivalgoods g on g.order_id = a.order_ID
+	    LEFT JOIN doc_gwcz_settlement dgs ON dgs.order_id = a.order_ID
+        where a.IsExamline="1" and a.class_EastAndWest = '1'
+        and a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="beginTime!=null and beginTime!=''">
+            and a.Class_date &gt;= #{beginTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and a.Class_date &lt;= #{endTime}
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number like CONCAT('%','${orderNumber}','%' )
+        </if>
+        <if test="classEastAndWest!=null and classEastAndWest!=''">
+            and a.class_EastAndWest =#{classEastAndWest}
+        </if>
+        group by a.order_ID
+        ) alldata
+
+        order by classDate desc
+    </select>
+    <!--我的订单-->
+    <select id="selectMyList" resultType="com.zih.booking.response.BusiOrderListResponse"
+            parameterType="com.zih.booking.vo.BusiShippingorderVo">
+        SELECT
+        a.TurnCount,
+        a.class_ID as classId,
+        a.order_ID as orderId,
+        a.order_number AS orderNumber,
+        a.booking_service AS bookingService,
+        a.ship_oreder_name as shipOrederName,
+        a.class_EastAndWest AS classEastAndWest,
+        a.ship_oreder_contacts AS shipOrederContacts,
+        a.order_uploadCode AS orderUploadcode,
+        a.order_unloadCode AS orderUnloadcode,
+        class.class_STime AS classDate,
+        a.order_ID AS orderId,
+        a.YW_Number AS ywNumber,
+        a.client_yw_number AS clientYwNumber,
+        a.kh_id as khId,
+        a.IsConsolidation as isConsolidation,
+        b.goods_name AS goodsName,
+        b.goods_en_name as goodsEnName,
+        c.box_num as xianghao,
+        a.order_uploadSite AS orderUploadsite,
+        a.order_unloadSite AS orderUnloadsite,
+        a.order_audit_createdate AS createTime,
+        b.goods_KGS AS goodsKGS,
+        b.goods_CBM AS goodsCBM,
+        a.container_type AS containerType,
+        a.IsExamline as isExamline,
+        a.container_boxAmount as containerBoxamount,
+        a.client_contacts as clientContacts,
+        a.line_typeid as lineTypeid,
+        exam.exam_info as examInfo,
+        exam.xg_refuse_info as xgRefuseInfo,
+        exam.refuse_info as refuseInfo,
+        a.inquiry_record_id as inquiryRecordId,
+        r.inquiry_id as inquiryId,
+        a.booking_service as bookingService,
+        a.tj_time as tjTime,
+        class.class_state as classState,
+        a.Exame_time as exameTime,
+        a.isupdate as isupdate,
+        ir.valid_date as validDate,
+        ir.booking_time_flag as bookingTimeFlag,
+        a.client_order_remarks as clientOrderRemarks
+        FROM
+        busi_shippingorder a
+        LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+        left join busi_classes class on class.class_ID = a.class_ID
+        left join booking_inquiry_result r on r.id=a.inquiry_record_id
+        left join booking_inquiry ir on ir.id = r.inquiry_id
+        left join track_goods_status c on a.order_ID=c.order_id and c.id=
+        (select id from track_goods_status c where a.order_ID=c.order_id limit 1)
+        left join shippingorder_examinfo exam on exam.order_ID = a.order_ID
+        and exam.exam_ID = (select exam_ID from shippingorder_examinfo where order_ID =a.order_ID order by exam_date
+        desc limit 1)
+        where
+        a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="isConsolidation!=null and isConsolidation!=''">
+            and a.IsConsolidation =#{isConsolidation}
+        </if>
+        <if test="classEastAndWest!=null and classEastAndWest!=''">
+            and a.class_EastAndWest =#{classEastAndWest}
+        </if>
+        <if test="classDate!=null">
+            and DATE_FORMAT(a.class_Date,'%Y-%m-%d') =DATE_FORMAT(#{classDate},'%Y-%m-%d')
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number like CONCAT('%','${orderNumber}','%' )
+        </if>
+        <if test="ywNumber!=null and ywNumber!=''">
+            and a.YW_Number like CONCAT('%','${ywNumber}','%' )
+        </if>
+        <if test="clientYwNumber!=null and clientYwNumber!=''">
+            and a.client_yw_number like CONCAT('%','${clientYwNumber}','%' )
+        </if>
+        <if test="clientContacts!=null and clientContacts!=''">
+            and a.client_contacts like CONCAT('%','${clientContacts}','%' )
+        </if>
+        <if test="goodsName!=null and goodsName!=''">
+            and b.goods_name like CONCAT('%','${goodsName}','%' )
+        </if>
+        <if test="goodsEnName!=null and goodsEnName!=''">
+            and b.goods_en_name like CONCAT('%','${goodsEnName}','%' )
+        </if>
+        <if test="lineTypeid!=null and lineTypeid!=''">
+            and a.line_typeid =#{lineTypeid}
+        </if>
+        <if test="isExamline!=null and isExamline!=''">
+            and a.IsExamline = #{isExamline}
+        </if>
+        <if test=" isExamline==null  or  isExamline=='' ">
+            and a.IsExamline &lt;&gt;1 and a.IsExamline &lt;&gt;3
+        </if>
+        <if test="khId!=null">
+            and a.kh_id = #{khId}
+        </if>
+        order by a.Class_date desc
+    </select>
+
+    <!--托书商品详情-->
+    <select id="selectGoodsInfo" parameterType="string" resultType="com.zih.booking.model.BookingInquiryGoodsDetails">
+        select goods.inquiry_id as inquiryId,goods.goods_name as goodsName,goods.goods_amount as goodsAmount,goods.goods_weight as goodsWeight,
+        goods.goods_length as goodsLength,goods.goods_width as goodsWidth,goods.goods_height as goodsHeight
+        from booking_inquiry_goods_details goods
+        left join booking_inquiry inqu on inqu.id = goods.inquiry_id
+        left join booking_inquiry_result inqures on inqures.inquiry_id = inqu.id
+        where inqures.id = #{inquiryRecordId}
+    </select>
+
+    <!--配舱通知书-->
+    <select id="getAllocationNotice" resultType="com.zih.booking.response.AllocationNotice">
+    SELECT
+a.client_unit as clientUnit,
+	a.order_number AS orderNumber,
+	a.class_EastAndWest AS classEastAndWest,
+	a.ship_oreder_contacts AS shipOrederContacts,
+	a.ship_oreder_name AS shipOrederName,
+	a.Class_date AS classDate,
+	a.order_ID AS orderId,
+	a.client_yw_number AS clientYwNumber,
+a.receive_order_name as receiveOrderName,
+a.receive_order_en_name as receiveOrderEnName,
+	a.container_boxAmount as containerBoxAmount,
+	a.ship_order_unloadAddress AS shipOrderUnloadAddress,
+	a.ship_order_unloadTime AS shipOrderUnloadTime,
+	a.IsConsolidation AS isConsolidation,
+	b.goods_name AS goodsName,
+	b.goods_en_name AS goodsEnName,
+	a.order_uploadSite AS orderUploadsite,
+	a.order_unloadSite AS orderUnloadsite,
+b.goods_mark as goodsMark,
+b.goods_packing as goodsPacking,
+b.goods_number as goodsNumber,
+b.goods_standard as goodsStandard,
+ a.goods_cannotPileUp as goodsCannotPileUp,
+	b.goods_KGS AS goodsKgs,
+	b.goods_CBM AS goodsCbm,
+	a.container_type AS containerType ,
+	 a.class_number as classNumber,
+c.cuntofftime,
+c.statioin as station,
+c.zx_address as zxAddress,
+c.px_address as pxAddress,
+	 c.contacts,
+	 c.px_ystype as pxYstype,
+	a.client_order_bindingWay as clientOrderBindingWay,
+	a.stationID as stationID,
+	case a.class_EastAndWest when '0' then bc.w_Merchandiser_id else bc.e_Merchandiser_id end as orderMerchandiserId
+FROM
+	busi_shippingorder a
+LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+left join busi_clients bc on bc.client_ID = a.client_ID
+  left join busi_station c on c.station_id = a.stationID
+    where a.order_ID=#{orderId} limit 1
+     </select>
+    <!--配舱通知书pdf-->
+    <select id="getAllocationNoticePdfXi" resultType="java.util.Map">
+    SELECT
+    a.client_unit as clientUnit,
+	a.order_number AS orderNumber,
+	a.class_EastAndWest AS classEastAndWest,
+	a.ship_oreder_contacts AS shipOrederContacts,
+	a.ship_oreder_name AS shipOrederName,
+	a.Class_date AS classDate,
+	a.YW_Number AS ywNumber,
+	a.IsConsolidation AS isConsolidation,
+	 a.receive_order_name as receiveOrderName,
+    a.receive_order_en_name as receiveOrderEnName,
+	a.container_boxAmount as containerBoxAmount,
+	b.goods_name AS goodsName,
+	b.goods_en_name AS goodsEnName,
+	a.order_uploadSite AS orderUploadsite,
+	a.order_unloadSite AS orderUnloadsite,
+	 a.goods_cannotPileUp as goodsCannotPileUp,
+b.goods_mark as goodsMark,
+b.goods_packing as goodsPacking,
+b.goods_number as goodsNumber,
+b.goods_standard as goodsStandard,
+	b.goods_KGS AS goodsKgs,
+	a.container_type AS containerType
+FROM
+	busi_shippingorder a
+LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+    where a.order_ID=#{orderId} limit 1
+     </select>
+    <!--配舱通知书pdf 东向-->
+    <select id="getAllocationNoticePdfDong" resultType="java.util.Map">
+    SELECT
+    a.client_unit as clientUnit,
+	a.order_number AS orderNumber,
+	a.class_EastAndWest AS classEastAndWest,
+	a.ship_oreder_contacts AS shipOrederContacts,
+	a.ship_oreder_name AS shipOrederName,
+	a.Class_date AS classDate,
+	a.YW_Number AS ywNumber,
+	a.IsConsolidation AS isConsolidation,
+	 a.receive_order_name as receiveOrderName,
+    a.receive_order_en_name as receiveOrderEnName,
+	a.container_boxAmount as containerBoxAmount,
+	b.goods_name AS goodsName,
+	b.goods_en_name AS goodsEnName,
+	a.order_uploadSite AS orderUploadsite,
+	a.order_unloadSite AS orderUnloadsite,
+
+b.goods_mark as goodsMark,
+b.goods_packing as goodsPacking,
+b.goods_number as goodsNumber,
+
+	b.goods_KGS AS goodsKgs,
+	b.goods_CBM AS goodsCbm,
+	a.container_type AS containerType,
+	c.cuntofftime,
+c.statioin,
+c.zx_address as zxAddress,
+c.px_address as pxAddress,
+	 c.contacts
+FROM
+	busi_shippingorder a
+LEFT JOIN busi_shippingorder_goods b ON a.order_ID = b.order_ID
+LEFT JOIN busi_station c on a.order_uploadCode =c.class_code and a.IsConsolidation=c.IsConsolidation and c.IsEnabled=0
+    where a.order_ID=#{orderId} limit 1
+     </select>
+    <!--数据统计-->
+    <select id="getTodayCount" resultType="com.zih.booking.response.HomePageResponse">
+        SELECT
+        count(if(IsExamline='1',1,null)) count2,
+        count(if(IsExamline='2',1,null)) count3,
+        count(*) as count
+        FROM
+        busi_shippingorder
+        where DATE_FORMAT(Exame_time,'%Y-%m-%d') = #{today}
+        and client_ID in
+        <foreach collection="clients" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        limit 1
+    </select>
+
+    <!--查询客户跟单邮箱-->
+    <select id="selectOrderMerEmail" parameterType="string" resultType="string">
+        select email from sys_user where dc_user_id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--查询客户推荐人邮箱-->
+    <select id="selectOrderTjrEmail" parameterType="String" resultType="string">
+        select email from sys_user where tjr_id = #{tjrId} and <![CDATA[ reference_type <> '0' ]]>
+    </select>
+
+    <select id="selectTjrEmail" parameterType="String" resultType="com.zih.booking.model.TjrEmail">
+        select
+            bso.order_number as orderNumber,
+            sd.mCheng,
+            sde.dept_code as deptCode
+        from
+            busi_shippingorder bso
+        left join busi_clients bc on bc.client_ID = bso.client_ID
+        left join system_dict sd on sd.id = bc.client_tjr_id
+        left join sys_user su on su.tjr_id = bc.client_tjr_id
+        left join sys_dept sde on sde.dept_id = su.dept_id
+        where bso.order_ID = #{orderId}
+    </select>
+
+    <select id="selectClientByOrderNumber" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+            client_ID,
+            order_ID,
+            order_number,
+            client_email,
+            IsConsolidation,
+            class_EastAndWest,
+            ship_order_binningWay
+        FROM
+            busi_shippingorder
+        WHERE
+            order_number like concat(#{orderNumber}, '%')
+    </select>
+
+    <select id="selectClientByOrderId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+            client_ID,
+            order_ID,
+            order_number,
+            client_email,
+            IsConsolidation,
+            class_EastAndWest,
+            ship_order_binningWay
+        FROM
+            busi_shippingorder
+        WHERE
+            order_ID = #{orderId}
+    </select>
+
+    <select id="siteListByClass" parameterType="string" resultType="string">
+        select case when '0'= #{isconsolidation} then receive_site_full else receive_site_lcl end as receiceSite
+        from busi_classes where class_ID = #{classId}
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BookingFuzzyInquiryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BookingFuzzyInquiry">
+        <id column="id" property="id" />
+        <result column="shipment_city_code" property="shipmentCityCode" />
+        <result column="shipment_place" property="shipmentPlace" />
+        <result column="receipt_city_code" property="receiptCityCode" />
+        <result column="receipt_place" property="receiptPlace" />
+        <result column="goods_type" property="goodsType" />
+        <result column="container_type" property="containerType" />
+        <result column="container_num" property="containerNum" />
+        <result column="package_type" property="packageType" />
+        <result column="is_stack" property="isStack" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="total_weight" property="totalWeight" />
+        <result column="total_volume" property="totalVolume" />
+        <result column="inquiry_time" property="inquiryTime" />
+        <result column="client_id" property="clientId" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+</mapper>

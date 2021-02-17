@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.TrackStationToDoorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.TrackStationToDoor">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="draft_time" property="draftTime"/>
+        <result column="cancel_book_time" property="cancelBookTime"/>
+        <result column="check_pending_time" property="checkPendingTime"/>
+        <result column="check_result_time" property="checkResultTime"/>
+        <result column="check_result" property="checkResult"/>
+        <result column="check_fail_reason" property="checkFailReason"/>
+        <result column="check_again_time" property="checkAgainTime"/>
+        <result column="check_again_result_time" property="checkAgainResultTime"/>
+        <result column="check_again_result" property="checkAgainResult"/>
+        <result column="check_again_fail_reason" property="checkAgainFailReason"/>
+        <result column="release_box_time" property="releaseBoxTime"/>
+        <result column="send_car_time" property="sendCarTime"/>
+        <result column="driver_information" property="driverInformation"/>
+        <result column="carry_box_time" property="carryBoxTime"/>
+        <result column="carry_goods_time" property="carryGoodsTime"/>
+        <result column="expect_arrive_time" property="expectArriveTime"/>
+        <result column="arrive_time" property="arriveTime"/>
+        <result column="in_store_time" property="inStoreTime"/>
+        <result column="in_station_time" property="inStationTime"/>
+        <result column="bills_provide_time" property="billsProvideTime"/>
+        <result column="problem_communicate_time" property="problemCommunicateTime"/>
+        <result column="straw_sure_time" property="strawSureTime"/>
+        <result column="original_provide_time" property="originalProvideTime"/>
+        <result column="apply_time" property="applyTime"/>
+        <result column="pay_tax_time" property="payTaxTime"/>
+        <result column="layout_time" property="layoutTime"/>
+        <result column="layout_reason" property="layoutReason"/>
+        <result column="weight_abnormal" property="weightAbnormal"/>
+        <result column="inspection_time" property="inspectionTime"/>
+        <result column="inspection_reason" property="inspectionReason"/>
+        <result column="release_time" property="releaseTime"/>
+        <result column="document_provide_time" property="documentProvideTime"/>
+        <result column="document_check_result" property="documentCheckResult"/>
+        <result column="train_depart_time" property="trainDepartTime"/>
+        <result column="carry_box_information_time" property="carryBoxInformationTime"/>
+        <result column="carry_container_time" property="carryContainerTime"/>
+        <result column="driver_news" property="driverNews"/>
+        <result column="expect_reach_time" property="expectReachTime"/>
+        <result column="reach_time" property="reachTime"/>
+        <result column="sign_time" property="signTime"/>
+        <result column="return_box_time" property="returnBoxTime"/>
+        <result column="get_cargo_time" property="getCargoTime"/>
+        <result column="devanning_time" property="devanningTime"/>
+        <result column="expect_carry_cargo_time" property="expectCarryCargoTime"/>
+        <result column="carry_cargo_time" property="carryCargoTime"/>
+        <result column="driver_message" property="driverMessage"/>
+        <result column="except_come_time" property="exceptComeTime"/>
+        <result column="come_time" property="comeTime"/>
+        <result column="receive_time" property="receiveTime"/>
+        <result column="remark" property="remark"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <!--去程整柜二级时间节点-->
+    <select id="selectTripCabinet" resultType="java.util.Map">
+  SELECT
+	a.check_result_time,
+	a.release_box_time,
+	a.carry_cargo_time,
+	a.in_store_time,
+	a.in_station_time,
+	a.release_time,
+	a.carry_box_information_time,
+	a.carry_container_time,
+	a.reach_time,
+	a.return_box_time,
+	a.except_come_time,
+	b.order_uploadSite,
+	b.order_unloadSite,
+	c.file_url
+FROM
+	busi_shippingorder b
+LEFT JOIN track_station_to_door a ON a.order_id = b.order_ID
+LEFT JOIN doc_order_document c ON b.order_id = c.order_id
+AND c.file_type_key = "pick_con_data_file"
+where b.order_id=#{orderId}
+    </select>
+    <!--去程拼箱二级时间节点 -->
+    <select id="selectTripAssembly" resultType="java.util.Map">
+SELECT
+	a.check_result_time,
+	a.carry_cargo_time,
+	a.in_store_time,
+	a.release_time,
+	a.devanning_time,
+	a.carry_goods_time,
+	a.reach_time,
+	a.except_come_time,
+	b.order_uploadSite,
+	b.order_unloadSite
+FROM
+	busi_shippingorder b
+LEFT JOIN track_station_to_door a ON a.order_id = b.order_ID
+ where b.order_id=#{orderId}
+    </select>
+    <!--回程整柜二级时间节点 -->
+    <select id="selectReturnCabinet" resultType="java.util.Map">
+SELECT
+	a.check_result_time,
+	a.release_box_time,
+a.get_cargo_time,
+a.in_station_time,
+a.document_check_time,
+a.release_time,
+a.carry_cargo_time,
+a.reach_time,
+a.return_box_time,
+a.expect_reach_time,
+b.order_uploadSite,
+b.order_unloadSite
+FROM
+	busi_shippingorder b
+LEFT JOIN track_station_to_door a ON a.order_id = b.order_ID
+ where b.order_id=#{orderId}
+    </select>
+    <!--回程拼箱二级时间节点 -->
+    <select id="selectReturnAssembly" resultType="java.util.Map">
+SELECT
+	a.check_result_time,
+	a.get_cargo_time,
+	a.in_store_time,
+a.in_station_time,
+a.document_check_time,
+a.document_check_time,
+a.devanning_time,
+a.carry_cargo_time,
+a.come_time,
+a.expect_reach_time,
+b.order_uploadSite,
+b.order_unloadSite
+FROM
+	busi_shippingorder b
+LEFT JOIN track_station_to_door a ON a.order_id = b.order_ID
+ where b.order_id=#{orderId}
+    </select>
+</mapper>

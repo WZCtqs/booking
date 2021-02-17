@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.TrackAbroadMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.TrackAbroad">
+        <id column="id" property="id" />
+        <result column="goods_status_id" property="goodsStatusId" />
+        <result column="customer_emails" property="customerEmails" />
+        <result column="documentary_emails" property="documentaryEmails" />
+        <result column="business_emails" property="businessEmails" />
+        <result column="down_site" property="downSite" />
+        <result column="departure_date" property="departureDate" />
+        <result column="leave_time" property="leaveTime" />
+        <result column="change_time" property="changeTime" />
+        <result column="change_num" property="changeNum" />
+        <result column="abroad_contents" property="abroadContents" />
+        <result column="track_time" property="trackTime" />
+        <result column="remark" property="remark" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

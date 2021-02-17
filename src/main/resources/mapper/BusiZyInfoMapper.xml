@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiZyInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiZyInfo">
+        <id column="cost_id" property="costId" />
+        <result column="order_id" property="orderId" />
+        <result column="xianghao" property="xianghao" />
+        <result column="xiangxing" property="xiangxing" />
+        <result column="px_entry_date" property="pxEntryDate" />
+        <result column="px_entry_time" property="pxEntryTime" />
+        <result column="px_enter_car" property="pxEnterCar" />
+        <result column="px_enter_lead_number" property="pxEnterLeadNumber" />
+        <result column="xg_xiangkuang" property="xgXiangkuang" />
+        <result column="xg_isrepair" property="xgIsrepair" />
+        <result column="xg_ismingpai" property="xgIsmingpai" />
+        <result column="xg_boat" property="xgBoat" />
+        <result column="xg_send" property="xgSend" />
+        <result column="xg_check" property="xgCheck" />
+        <result column="road_isbill" property="roadIsbill" />
+        <result column="road_check" property="roadCheck" />
+        <result column="createdate" property="createdate" />
+        <result column="createuserid" property="createuserid" />
+        <result column="createusername" property="createusername" />
+        <result column="baoguan_docu" property="baoguanDocu" />
+        <result column="suiche_docu" property="suicheDocu" />
+        <result column="waybill" property="waybill" />
+        <result column="paystate" property="paystate" />
+        <result column="gd_consignee" property="gdConsignee" />
+        <result column="gd_remark" property="gdRemark" />
+        <result column="gd_check" property="gdCheck" />
+        <result column="fayun_date" property="fayunDate" />
+        <result column="fayun_state" property="fayunState" />
+        <result column="is_jg" property="isJg" />
+        <result column="is_pz" property="isPz" />
+        <result column="edit_remark" property="editRemark" />
+        <result column="xg_xsphoto" property="xgXsphoto" />
+        <result column="xg_xsstate" property="xgXsstate" />
+        <result column="xh_check" property="xhCheck" />
+        <result column="isPlanedDelivery" property="isPlanedDelivery" />
+        <result column="bgcaodan" property="bgcaodan" />
+        <result column="bgcaodan_confirm" property="bgcaodanConfirm" />
+        <result column="documents_give" property="documentsGive" />
+        <result column="weight_Check" property="weightCheck" />
+        <result column="customs_process" property="customsProcess" />
+        <result column="bgremark" property="bgremark" />
+        <result column="classzy_no" property="classzyNo" />
+        <result column="jz2_remark" property="jz2Remark" />
+        <result column="rc_weight" property="rcWeight" />
+        <result column="jz_weight" property="jzWeight" />
+        <result column="car_number" property="carNumber" />
+        <result column="jz2data" property="jz2data" />
+        <result column="zhengben_give" property="zhengbenGive" />
+        <result column="yichang_date" property="yichangDate" />
+        <result column="roadtime" property="roadtime" />
+        <result column="gdtime" property="gdtime" />
+        <result column="xgtime" property="xgtime" />
+        <result column="Real_unloadSite" property="realUnloadsite" />
+        <result column="mingpai_gh" property="mingpaiGh" />
+        <result column="cepian_result" property="cepianResult" />
+        <result column="transport_Dept" property="transportDept" />
+        <result column="ISJZ_LDbus" property="isjzLdbus" />
+        <result column="cause_nojz" property="causeNojz" />
+        <result column="roadlog_remark" property="roadlogRemark" />
+        <result column="Actual_classbh" property="actualClassbh" />
+        <result column="xianghao_place" property="xianghaoPlace" />
+        <result column="is_applynum" property="isApplynum" />
+        <result column="container_kgs" property="containerKgs" />
+    </resultMap>
+
+</mapper>

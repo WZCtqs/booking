@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.TrackIconMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.TrackIcon">
+        <id column="id" property="id" />
+        <result column="go_come" property="goCome" />
+        <result column="consolidation_type" property="consolidationType" />
+        <result column="icon" property="icon" />
+        <result column="name_zh" property="nameZh" />
+        <result column="name_en" property="nameEn" />
+        <result column="sort" property="sort" />
+        <result column="remark" property="remark" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    <!--中文-->
+    <select id="selectZhOneNode" resultType="com.zih.booking.response.OneNodeResponse">
+       SELECT
+	IFNULL(c.id,0) as id,IFNULL(c.name_zh ,a.name_zh)as nodeName,a.sort,c.state,c.time,a.icon
+FROM
+	track_icon a
+LEFT JOIN busi_shippingorder b ON a.go_come = b.class_EastAndWest
+AND a.consolidation_type = b.IsConsolidation
+LEFT JOIN track_one_level c on a.sort=c.sort and  c.order_id=b.order_ID
+WHERE b.order_ID=#{orderId}
+ORDER BY a.sort
+    </select>
+    <!--英文-->
+    <select id="selectEnOneNode" resultType="com.zih.booking.response.OneNodeResponse">
+       SELECT
+	IFNULL(c.id,0) as id,IFNULL(c.name_en ,a.name_en)as nodeName,a.sort,c.state,c.time,a.icon
+FROM
+	track_icon a
+LEFT JOIN busi_shippingorder b ON a.go_come = b.class_EastAndWest
+AND a.consolidation_type = b.IsConsolidation
+LEFT JOIN track_one_level c on a.sort=c.sort and  c.order_id=b.order_ID
+WHERE b.order_ID=#{orderId}
+ORDER BY a.sort
+    </select>
+
+
+</mapper>

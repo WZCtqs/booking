@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BookingInquiryResultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BookingInquiryResult">
+        <id column="id" property="id" />
+        <result column="inquiry_id" property="inquiryId" />
+        <result column="upload_station" property="uploadStation" />
+        <result column="drop_station" property="dropStation" />
+        <result column="upload_station_remark" property="uploadStationRemark" />
+        <result column="drop_station_remark" property="dropStationRemark" />
+        <result column="pick_up_address" property="pickUpAddress" />
+        <result column="pick_up_distance" property="pickUpDistance" />
+        <result column="pick_up_aging" property="pickUpAging" />
+        <result column="pick_up_fees" property="pickUpFees" />
+        <result column="pick_up_currency_type" property="pickUpCurrencyType" />
+        <result column="pick_up_expiration" property="pickUpExpiration" />
+        <result column="pick_up_remark" property="pickUpRemark" />
+        <result column="pick_up_feedback_time" property="pickUpFeedbackTime" />
+        <result column="railway_fees" property="railwayFees" />
+        <result column="railway_currency_type" property="railwayCurrencyType" />
+        <result column="railway_charges" property="railwayCharges" />
+        <result column="railway_expiration" property="railwayExpiration" />
+        <result column="railway_aging" property="railwayAging" />
+        <result column="railway_remark" property="railwayRemark" />
+        <result column="railway_feedback_time" property="railwayFeedbackTime" />
+        <result column="delivery_address" property="deliveryAddress" />
+        <result column="delivery_distance" property="deliveryDistance" />
+        <result column="delivery_fees" property="deliveryFees" />
+        <result column="delivery_currency_type" property="deliveryCurrencyType" />
+        <result column="delivery_aging" property="deliveryAging" />
+        <result column="delivery_expiration" property="deliveryExpiration" />
+        <result column="delivery_remark" property="deliveryRemark" />
+        <result column="delivery_feedback_time" property="deliveryFeedbackTime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="confirm_flag" property="confirmFlag" />
+        <result column="confirm_time" property="confirmTime" />
+        <result column="confirm_user" property="confirmUser" />
+        <result column="js_remark" property="jsRemark" />
+        <result column="pick_up_box_fee" property="pickUpBoxFee" />
+        <result column="pick_up_box_expiration" property="pickUpBoxExpiration" />
+        <result column="return_box_fee" property="returnBoxFee" />
+        <result column="return_box_expiration" property="returnBoxExpiration" />
+        <result column="lhu_fee" property="lhuFee" />
+        <result column="cccz_fee" property="ccczFee" />
+        <result column="tkx_fee" property="tkxFee" />
+        <result column="jg_fee" property="jgFee" />
+        <result column="dt_fee" property="dtFee" />
+        <result column="zcx_fee" property="zcxFee" />
+        <result column="inquiry_number" property="inquiryNumber" />
+        <result column="inquiry_num" property="inquiryNum" />
+        <result column="enquiry_state" property="enquiryState" />
+        <result column="hx_address" property="hxAddress" />
+        <result column="tx_address" property="txAddress" />
+    </resultMap>
+   <!--询价结果pdf导出-->
+    <select id="getPdf" resultType="java.util.Map">
+    SELECT
+    b.shipment_place,
+    b.receipt_place,
+    b.east_or_west,
+    b.goods_type,
+    b.delivery_type,
+    b.is_stack,
+    a.*
+    FROM
+    booking_inquiry_result a
+    LEFT JOIN booking_inquiry b on a.inquiry_id=b.id
+    where a.id = #{id} limit 1
+    </select>
+
+</mapper>

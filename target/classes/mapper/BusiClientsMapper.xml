@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiClientsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiClients">
+        <id column="client_ID" property="clientId" />
+        <result column="client_unit" property="clientUnit" />
+        <result column="client_address" property="clientAddress" />
+        <result column="client_legalPerson" property="clientLegalperson" />
+        <result column="client_Contacts" property="clientContacts" />
+        <result column="client_tel" property="clientTel" />
+        <result column="client_phone" property="clientPhone" />
+        <result column="client_Email" property="clientEmail" />
+        <result column="client_dept" property="clientDept" />
+        <result column="client_zw" property="clientZw" />
+        <result column="client_tjr" property="clientTjr" />
+        <result column="client_tjr_id" property="clientTjrId" />
+        <result column="remark" property="remark" />
+        <result column="client_license" property="clientLicense" />
+        <result column="client_code" property="clientCode" />
+        <result column="client_tax" property="clientTax" />
+        <result column="client_loginUser" property="clientLoginuser" />
+        <result column="client_loginPwd" property="clientLoginpwd" />
+        <result column="client_validityDate" property="clientValiditydate" />
+        <result column="client_disabledDate" property="clientDisableddate" />
+        <result column="client_examPersonID" property="clientExampersonid" />
+        <result column="client_examPerson" property="clientExamperson" />
+        <result column="userInfo_ID" property="userinfoId" />
+        <result column="userInfo_name" property="userinfoName" />
+        <result column="ExamInfo" property="ExamInfo" />
+        <result column="IsExamline" property="IsExamline" />
+        <result column="cancelAccount" property="cancelAccount" />
+        <result column="createdate" property="createdate" />
+        <result column="createuserid" property="createuserid" />
+        <result column="createusername" property="createusername" />
+        <result column="client_jb" property="clientJb" />
+        <result column="Eng_Chinese" property="engChinese" />
+        <result column="en_prename" property="enPrename" />
+        <result column="en_gender" property="enGender" />
+        <result column="en_no" property="enNo" />
+        <result column="en_place" property="enPlace" />
+        <result column="Register_phone" property="registerPhone" />
+        <result column="alias" property="alias" />
+        <result column="state" property="state" />
+        <result column="is_normal" property="isNormal" />
+        <result column="is_direct" property="isDirect" />
+        <result column="is_sign" property="isSign" />
+        <result column="w_Merchandiser_id" property="wMerchandiserId" />
+        <result column="w_Merchandiser_number" property="wMerchandiserNumber" />
+        <result column="w_Merchandiser" property="wMerchandiser" />
+        <result column="e_Merchandiser_id" property="eMerchandiserId" />
+        <result column="e_Merchandiser_number" property="eMerchandiserNumber" />
+        <result column="e_Merchandiser" property="eMerchandiser" />
+        <result column="is_vip" property="isVip" />
+        <result column="Sign_Date" property="signDate" />
+        <result column="Sign_disabledDate" property="signDisableddate" />
+        <result column="client_grade" property="clientGrade" />
+        <result column="TotalTurnCountAvg" property="TotalTurnCountAvg" />
+        <result column="dead_beat_type" property="deadBeatType" />
+    </resultMap>
+
+</mapper>

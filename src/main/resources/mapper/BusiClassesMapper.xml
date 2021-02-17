@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiClassesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiClasses">
+        <id column="class_ID" property="classId" />
+        <result column="class_bh" property="classBh" />
+        <result column="line_typeid" property="lineTypeid" />
+        <result column="line_id" property="lineId" />
+        <result column="class_t_ID" property="classTId" />
+        <result column="class_number" property="classNumber" />
+        <result column="class_BlockTrain" property="classBlocktrain" />
+        <result column="class_ClassType" property="classClasstype" />
+        <result column="class_EastAndWest" property="classEastandwest" />
+        <result column="class_StationOfDeparture" property="classStationofdeparture" />
+        <result column="class_StationOfDestination" property="classStationofdestination" />
+        <result column="class_TransportTime" property="classTransporttime" />
+        <result column="isPublicly" property="isPublicly" />
+        <result column="class_spacenumber" property="classSpacenumber" />
+        <result column="zxcnt" property="zxcnt" />
+        <result column="pxstate" property="pxstate" />
+        <result column="pxcnt" property="pxcnt" />
+        <result column="pxkgs" property="pxkgs" />
+        <result column="class_STime" property="classStime" />
+        <result column="class_ETime" property="classEtime" />
+        <result column="class_state" property="classState" />
+        <result column="receive_site_full" property="receiveSiteFull" />
+        <result column="receive_site_lcl" property="receiveSiteLcl" />
+        <result column="createdate" property="createdate" />
+        <result column="createuserid" property="createuserid" />
+        <result column="createusername" property="createusername" />
+        <result column="remark" property="remark" />
+        <result column="CostEntry_State" property="costentryState" />
+        <result column="Distribution_time" property="distributionTime" />
+        <result column="XHEntry_State" property="xhentryState" />
+        <result column="PXEntry_State" property="pxentryState" />
+        <result column="USDtoRMBe" property="USDtoRMBe" />
+        <result column="EURtoRMBe" property="EURtoRMBe" />
+        <result column="EUTtoUSDe" property="EUTtoUSDe" />
+        <result column="RURtoRMBe" property="RURtoRMBe" />
+    </resultMap>
+    <!--整箱  eastOrWest 去回程,0为去程 1为回程 回程的都是上货站  去程的都是下货站-->
+    <select id="selectZXList" parameterType="com.zih.booking.model.BookingInquiry" resultMap="BaseResultMap">
+      select a.* from busi_classes a
+      where a.zxcnt >=(SELECT IFNULL(sum(if(b.container_type like "%20%",b.container_boxAmount/2,b.container_boxAmount)   ),  0) from busi_shippingorder b WHERE b.class_ID=a.class_ID and b.IsConsolidation=0 and b.IsExamline in ('0','1','4','5','7','9','10','11','12','13')  )
+      <if test="eastOrWest==1">
+          and FIND_IN_SET(#{uploadStationNum},receive_site_full)
+          and a.class_StationOfDestination=#{dropStationNum}
+       </if>
+       <if test="eastOrWest==0">
+          and FIND_IN_SET(#{dropStationNum},receive_site_full)
+          and a.class_StationOfDeparture =#{uploadStationNum}
+       </if>
+       <if test="bookingTimeFlag != null and bookingTimeFlag != '' and nextMonth != null">
+           <if test="bookingTimeFlag==0">
+               and <![CDATA[a.class_STime < #{nextMonth,jdbcType=DATE}]]>
+           </if>
+           <if test="bookingTimeFlag==1">
+               and <![CDATA[a.class_STime >= #{nextMonth,jdbcType=DATE}]]>
+           </if>
+       </if>
+       <if test="validDate != null">
+           and DATE_FORMAT(a.class_STime,'%Y-%m-%d') <![CDATA[<= ]]> DATE_FORMAT(#{validDate},'%Y-%m-%d')
+       </if>
+       and a.class_EastAndWest = #{eastOrWest}
+       and a.line_typeid= #{lineType}
+       and a.class_state=0
+       and a.class_spacenumber != 0
+       order by a.class_STime
+</select>
+
+
+    <!--品箱-->
+    <select id="selectPXList" parameterType="com.zih.booking.model.BookingInquiry" resultMap="BaseResultMap">
+    select a.* from busi_classes a
+    where a.pxkgs >=(SELECT IFNULL(sum(c.goods_KGS) ,0) from busi_shippingorder_goods c LEFT JOIN busi_shippingorder b on c.order_ID=b.order_ID WHERE b.class_ID=a.class_ID and b.IsConsolidation=1 and b.IsExamline in ('0','1','4','5','7','9','10','11','12','13') )
+    and a.pxcnt >=(SELECT IFNULL(sum(c.goods_CBM) ,0) from busi_shippingorder_goods c LEFT JOIN busi_shippingorder b on c.order_ID=b.order_ID WHERE b.class_ID=a.class_ID and b.IsConsolidation=1 and b.IsExamline in ('0','1','4','5','7','9','10','11','12','13')  )
+    <if test="eastOrWest==1">
+        and FIND_IN_SET(#{uploadStationNum},receive_site_lcl)
+        and a.class_StationOfDestination=#{dropStationNum}
+    </if>
+    <if test="eastOrWest==0">
+        and FIND_IN_SET(#{dropStationNum},receive_site_lcl)
+        and a.class_StationOfDeparture =#{uploadStationNum}
+    </if>
+    <if test="bookingTimeFlag != null and bookingTimeFlag != '' and nextMonth != null">
+        <if test="bookingTimeFlag==0">
+            and <![CDATA[a.class_STime < #{nextMonth,jdbcType=DATE}]]>
+        </if>
+        <if test="bookingTimeFlag==1">
+            and <![CDATA[a.class_STime >= #{nextMonth,jdbcType=DATE}]]>
+        </if>
+    </if>
+    <if test="validDate != null">
+        and DATE_FORMAT(a.class_STime,'%Y-%m-%d') <![CDATA[<= ]]> DATE_FORMAT(#{validDate},'%Y-%m-%d')
+    </if>
+    and a.class_EastAndWest = #{eastOrWest}
+    and a.line_typeid= #{lineType}
+    and a.class_state=0
+    and a.pxstate=0
+    order by a.class_STime
+</select>
+</mapper>

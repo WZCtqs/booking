@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.DocOrderMapper">
+
+    <resultMap type="com.zih.booking.model.DocOrder" id="DocOrderResult">
+        <result property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="classDate" column="class_date"/>
+        <result property="auditTime" column="audit_time"/>
+        <result property="fileTypeKey" column="file_type_key"/>
+        <result property="fileTypeText" column="file_type_text"/>
+        <result property="normalSupplyNode" column="normal_supply_node"/>
+        <result property="actualSupplyTime" column="actual_supply_time"/>
+        <result property="actualSupply" column="actual_supply"/>
+        <result property="emailStatus" column="email_status"/>
+    </resultMap>
+
+    <sql id="selectDocOrderVo">
+        select id, order_id, order_number, class_date, audit_time, file_type_key, file_type_text, normal_supply_node,
+         actual_supply_time, actual_supply, email_status from doc_order
+    </sql>
+
+    <select id="selectByOrderidTypeKey" parameterType="String" resultMap="DocOrderResult">
+        <include refid="selectDocOrderVo"></include>
+        where order_id = #{orderId} and file_type_key = #{fileTypeKey}
+    </select>
+
+    <update id="updateByorderidTypeKey" parameterType="com.zih.booking.model.DocOrder">
+        update doc_order
+            set
+            normal_supply_node = #{normalSupplyNode}
+        where order_id = #{orderId} and file_type_key = #{fileTypeKey}
+    </update>
+
+    <update id="updateActualSupply" parameterType="String">
+        update doc_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="actualSupplyTime != null and orderId != ''">actual_supply_time = #{actualSupplyTime},</if>
+            <if test="actualSupply != null ">actual_supply = #{actualSupply},</if>
+            <if test="emailStatus != null ">email_status = #{emailStatus},</if>
+        </trim>
+        where order_id = #{orderId} and file_type_key = #{fileTypeKey}
+    </update>
+
+    <select id="selectDocOrderList" parameterType="com.zih.booking.model.DocOrder" resultMap="DocOrderResult">
+        <include refid="selectDocOrderVo"/>
+        <where>
+            <if test="orderId != null  and orderId != ''">and order_id = #{orderId}</if>
+            <if test="orderNumber != null  and orderNumber != ''">and order_number = #{orderNumber}</if>
+            <if test="classDate != null ">and class_date = #{classDate}</if>
+            <if test="auditTime != null ">and audit_time = #{auditTime}</if>
+            <if test="fileTypeKey != null  and fileTypeKey != ''">and file_type_key = #{fileTypeKey}</if>
+            <if test="fileTypeText != null  and fileTypeText != ''">and file_type_text = #{fileTypeText}</if>
+            <if test="normalSupplyNode != null ">and normal_supply_node = #{normalSupplyNode}</if>
+        </where>
+    </select>
+
+    <select id="selectDocOrderByOrderId" parameterType="String" resultMap="DocOrderResult">
+        <include refid="selectDocOrderVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertDocOrderMatch">
+        insert into doc_order
+        (order_id, order_number, class_date, audit_time, file_type_key, file_type_text, normal_supply_node)
+        VALUES
+        <foreach collection="docOrderList" item="docOrder" separator=",">
+            (#{docOrder.orderId},
+            #{docOrder.orderNumber},
+            #{docOrder.classDate},
+            #{docOrder.auditTime},
+            #{docOrder.fileTypeKey},
+            #{docOrder.fileTypeText},
+            #{docOrder.normalSupplyNode})
+        </foreach>
+    </insert>
+
+    <insert id="insertDocOrder" parameterType="com.zih.booking.model.DocOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into doc_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null  and orderId != ''">order_id,</if>
+            <if test="orderNumber != null  and orderNumber != ''">order_number,</if>
+            <if test="classDate != null ">class_date,</if>
+            <if test="auditTime != null ">audit_time,</if>
+            <if test="fileTypeKey != null  and fileTypeKey != ''">file_type_key,</if>
+            <if test="fileTypeText != null  and fileTypeText != ''">file_type_text,</if>
+            <if test="normalSupplyNode != null ">normal_supply_node,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null  and orderId != ''">#{orderId},</if>
+            <if test="orderNumber != null  and orderNumber != ''">#{orderNumber},</if>
+            <if test="classDate != null ">#{classDate},</if>
+            <if test="auditTime != null ">#{auditTime},</if>
+            <if test="fileTypeKey != null  and fileTypeKey != ''">#{fileTypeKey},</if>
+            <if test="fileTypeText != null  and fileTypeText != ''">#{fileTypeText},</if>
+            <if test="normalSupplyNode != null ">#{normalSupplyNode},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteDocOrderByOrderId" parameterType="String">
+        delete from doc_order where order_id = #{orderId}
+    </delete>
+
+</mapper>

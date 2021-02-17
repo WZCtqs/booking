@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiLinesiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiLinesite">
+        <id column="id" property="id" />
+        <result column="typeid" property="typeid" />
+        <result column="name_cn" property="nameCn" />
+        <result column="name_en" property="nameEn" />
+        <result column="class_t_StationOfDeparture_code" property="classTStationofdepartureCode" />
+        <result column="class_t_port" property="classTPort" />
+        <result column="class_t_StationOfDestination_code" property="classTStationofdestinationCode" />
+        <result column="sort" property="sort" />
+        <result column="site_codes" property="siteCodes" />
+        <result column="state" property="state" />
+        <result column="class_t_EastAndWest" property="classTEastandwest" />
+        <result column="class_t_TransportTime" property="classTTransporttime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="updatename" property="updatename" />
+        <result column="updatetime" property="updatetime" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BaseGoodsnoteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BaseGoodsnote">
+        <id column="id" property="id" />
+        <result column="EastAndWest" property="EastAndWest" />
+        <result column="goodsname" property="goodsname" />
+        <result column="inHS" property="inHS" />
+        <result column="unloadSite" property="unloadSite" />
+        <result column="station" property="station" />
+        <result column="specialnotes" property="specialnotes" />
+        <result column="radioaction" property="radioaction" />
+        <result column="goods_class" property="goodsClass" />
+    </resultMap>
+
+
+    <!--查询特殊单证物品列表(根据名称)-->
+    <select id="selectBaseGoodsnoteListByName" parameterType="String" resultMap="BaseResultMap">
+       select * from base_goodsnote
+         where  #{goodsname} like concat('%', `goodsname`, '%')
+       and goods_class = 0
+        and EastAndWest like concat('%', #{eastandwest}, '%')
+        and goodsname !=''
+    </select>
+
+    <!--查询特殊单证物品列表(根据编码)-->
+    <select id="selectBaseGoodsnoteListByOrderHs" parameterType="String" resultMap="BaseResultMap">
+        select * from base_goodsnote
+         where #{inhs} like concat('%', `inHS` )
+        and goods_class = 0
+        and EastAndWest like concat('%', #{eastandwest}, '%')
+        and inHS !=''
+    </select>
+
+</mapper>

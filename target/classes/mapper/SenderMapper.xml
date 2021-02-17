@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.SenderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.Sender">
+        <id column="sender_id" property="senderId" />
+        <result column="client_id" property="clientId" />
+        <result column="sender_name" property="senderName" />
+        <result column="sender_man" property="senderMan" />
+        <result column="sender_address" property="senderAddress" />
+        <result column="sender_phone" property="senderPhone" />
+        <result column="sender_email" property="senderEmail" />
+        <result column="order_num" property="orderNum" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

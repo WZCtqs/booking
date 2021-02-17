@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.DocOrderInstationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.DocOrderInstation">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="sealnum" property="sealnum" />
+        <result column="customsbroker" property="customsbroker" />
+        <result column="container_type" property="containerType" />
+        <result column="container_no" property="containerNo" />
+        <result column="instation_time" property="instationTime" />
+        <result column="create_time" property="createTime" />
+        <result column="from_system" property="fromSystem" />
+        <result column="order_number" property="orderNumber" />
+    </resultMap>
+
+    <select id="getDocOrderInstByConNo" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            doi.id,
+            doi.order_id,
+            doi.sealnum,
+            doi.container_type,
+            doi.container_no,
+            bso.order_number
+        FROM
+            doc_order_instation doi
+        LEFT JOIN busi_shippingorder bso on bso.order_ID = doi.order_id
+        WHERE
+            doi.container_no = #{containerNo}
+            AND doi.order_id IN ( SELECT order_ID FROM busi_shippingorder WHERE order_class_bh = #{classBh} )
+    </select>
+
+</mapper>

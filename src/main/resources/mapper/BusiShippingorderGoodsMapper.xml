@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiShippingorderGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiShippingorderGoods">
+        <id column="goods_ID" property="goodsId" />
+        <result column="order_ID" property="orderId" />
+        <result column="goods_mark" property="goodsMark" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_en_name" property="goodsEnName" />
+        <result column="goods_report" property="goodsReport" />
+        <result column="goods_out_clearance" property="goodsOutClearance" />
+        <result column="goods_in_report" property="goodsInReport" />
+        <result column="goods_clearance" property="goodsClearance" />
+        <result column="goods_packing" property="goodsPacking" />
+        <result column="goods_number" property="goodsNumber" />
+        <result column="goods_standard" property="goodsStandard" />
+        <result column="goods_KGS" property="goodsKgs" />
+        <result column="goods_CBM" property="goodsCbm" />
+        <result column="goods_isScheme" property="goodsIsscheme" />
+        <result column="remark" property="remark" />
+        <result column="createdate" property="createdate" />
+        <result column="goods_history_editrecord" property="goodsHistoryEditrecord" />
+        <result column="goodsbz" property="goodsbz" />
+        <result column="HSbz" property="HSbz" />
+        <result column="radioaction" property="radioaction" />
+        <result column="kp_state" property="kpState" />
+    </resultMap>
+
+</mapper>

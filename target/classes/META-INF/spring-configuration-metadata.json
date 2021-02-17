@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource.master",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.zih.booking.system.config.MasterDataSourceConfig",
+      "sourceMethod": "masterDataSource(com.zih.booking.system.config.DruidProperties)"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

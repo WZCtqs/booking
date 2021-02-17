@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiShippingorderDangerousGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiShippingorderDangerousGoods">
+        <id column="goods_ID" property="goodsId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_en_name" property="goodsEnName" />
+        <result column="specialremark" property="specialremark" />
+        <result column="note_level" property="noteLevel" />
+        <result column="createdate" property="createdate" />
+    </resultMap>
+
+</mapper>

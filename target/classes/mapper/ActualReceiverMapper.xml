@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.ActualReceiverMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.ActualReceiver">
+        <id column="act_receiver_id" property="actReceiverId" />
+        <result column="client_id" property="clientId" />
+        <result column="actual_man" property="actualMan" />
+        <result column="actual_phone" property="actualPhone" />
+        <result column="actual_email" property="actualEmail" />
+        <result column="go_back" property="goBack" />
+        <result column="actual_address" property="actualAddress" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="area" property="area" />
+        <result column="actual_detail_add" property="actualDetailAdd" />
+        <result column="transit_email" property="transitEmail" />
+        <result column="arrive_email" property="arriveEmail" />
+        <result column="order_num" property="orderNum" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

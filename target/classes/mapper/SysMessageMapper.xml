@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.SysMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.SysMessage">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="client_id" property="clientId" />
+        <result column="order_number" property="orderNumber" />
+        <result column="message_title" property="messageTitle" />
+        <result column="message_type" property="messageType" />
+        <result column="message_content" property="messageContent" />
+        <result column="msg_status" property="msgStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="file_type_key" property="fileTypeKey" />
+        <result column="sms_status" property="smsStatus" />
+        <result column="email_status" property="emailStatus" />
+        <result column="smsfail" property="smsfail" />
+        <result column="emailfail" property="emailfail" />
+    </resultMap>
+
+    <select id="getMsgPageByClientId" resultMap="BaseResultMap">
+        SELECT
+            id, message_title, message_type, message_content, create_time, msg_status
+        FROM
+            sys_message
+        WHERE
+            id > (
+                SELECT id FROM sys_message
+                WHERE  client_id = #{clientId}
+                <if test="messageTitle != null and messageTitle != ''">
+                    and message_title like concat('%', `messageTitle`, '%')
+                </if>
+                ORDER BY id DESC LIMIT #{pageSize2}, 1 )
+            AND client_id = #{clientId}
+        ORDER BY
+            id DESC
+            LIMIT #{pageNo},
+            #{pageSize}
+    </select>
+    <select id="getMsgPageByClientIdCount" resultType="Integer">
+        SELECT count(1) FROM sys_message
+        WHERE  client_id = #{clientId}
+        <if test="messageTitle != null and messageTitle != ''">
+            and message_title like concat('%', `messageTitle`, '%')
+        </if>
+    </select>
+    <select id="getNotReadCount" parameterType="String" resultType="Integer">
+        SELECT
+            count(1)
+        FROM
+            sys_message
+        WHERE
+            id >= ( SELECT id FROM sys_message WHERE  client_id = #{clientId} ORDER BY id LIMIT 0, 1)
+            and msg_status = 0 AND client_id = #{clientId}
+            LIMIT 0,
+            99
+    </select>
+</mapper>

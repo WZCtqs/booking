@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BookingCityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BookingCity">
+        <result column="three_code" property="threeCode" />
+        <result column="name_cn" property="nameCn" />
+        <result column="name_en" property="nameEn" />
+        <result column="country_cn" property="countryCn" />
+        <result column="country_en" property="countryEn" />
+        <result column="code" property="code" />
+        <result column="country_code" property="countryCode" />
+        <result column="intra" property="intra" />
+        <result column="abbr" property="abbr" />
+        <result column="area_type" property="areaType" />
+        <result column="is_remotely" property="isRemotely" />
+        <result column="container_number" property="containerNumber" />
+        <result column="line_type" property="lineType" />
+    </resultMap>
+
+</mapper>

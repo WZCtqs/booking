@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BusiSiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiSite">
+        <id column="id" property="id" />
+        <result column="country_code" property="countryCode" />
+        <result column="country_cn" property="countryCn" />
+        <result column="country_en" property="countryEn" />
+        <result column="code" property="code" />
+        <result column="name_cn" property="nameCn" />
+        <result column="name_en" property="nameEn" />
+        <result column="time_zone" property="timeZone" />
+        <result column="line_typeid" property="lineTypeid" />
+        <result column="state" property="state" />
+        <result column="type" property="type" />
+    </resultMap>
+    <!--整箱 上货站-->
+    <select id="selectZXSList"   resultType="com.zih.booking.response.CityResponse">
+      SELECT
+      <if test="language != null and language == 'zh'">zrd.order_upload_site as cityName,</if>
+      <if test="language != null and language == 'en'">bs.name_en as cityName,</if>
+	  bs.code as cityCode
+FROM
+	zg_rail_division zrd
+    LEFT JOIN busi_site bs on bs.name_cn = zrd.order_upload_site
+	where zrd.line_type=#{lineTypeid} AND zrd.east_or_west= #{eastWest} and zrd.order_upload_site != '工厂'
+GROUP BY
+    <if test="language != null and language == 'zh'">
+        zrd.order_upload_site
+	</if>
+	<if test="language != null and language == 'en'">
+        bs.name_en
+	</if>
+</select>
+    <!--整箱 下货站-->
+    <select id="selectZXXList"   resultType="com.zih.booking.response.CityResponse">
+       SELECT
+        <if test="language != null and language == 'zh'">zrd.order_unload_site as cityName,</if>
+        <if test="language != null and language == 'en'">bs.name_en as cityName,</if>
+	    bs.code as cityCode
+FROM
+	zg_rail_division zrd
+    LEFT JOIN busi_site bs on bs.name_cn = zrd.order_unload_site
+	where zrd.line_type=#{lineTypeid} AND zrd.east_or_west= #{eastWest}
+GROUP BY
+    <if test="language != null and language == 'zh'">
+        zrd.order_unload_site
+	</if>
+	<if test="language != null and language == 'en'">
+        bs.name_en
+	</if>
+</select>
+    <!--拼箱上货站-->
+    <select id="selectPXSList"   resultType="com.zih.booking.response.CityResponse">
+       SELECT
+        <if test="language != null and language == 'zh'">srd.order_upload_site as cityName,</if>
+        <if test="language != null and language == 'en'">bs.name_en as cityName,</if>
+	    bs.code as cityCode
+FROM
+	sh_rail_division srd
+    LEFT JOIN busi_site bs on bs.name_cn = srd.order_upload_site
+	where srd.line_type=#{lineTypeid} AND srd.east_or_west= #{eastWest} and srd.order_upload_site != '工厂'
+GROUP BY
+	<if test="language != null and language == 'zh'">
+        srd.order_upload_site
+	</if>
+	<if test="language != null and language == 'en'">
+        bs.name_en
+	</if>
+</select>
+    <!--拼箱下货站-->
+    <select id="selectPXXList"   resultType="com.zih.booking.response.CityResponse">
+       SELECT
+        <if test="language != null and language == 'zh'">srd.order_unload_site as cityName,</if>
+        <if test="language != null and language == 'en'">bs.name_en as cityName,</if>
+	    bs.code as cityCode
+FROM
+	sh_rail_division srd
+    LEFT JOIN busi_site bs on bs.name_cn = srd.order_unload_site
+	where srd.line_type=#{lineTypeid} AND srd.east_or_west= #{eastWest}
+GROUP BY
+	<if test="language != null and language == 'zh'">
+        srd.order_unload_site
+	</if>
+	<if test="language != null and language == 'en'">
+        bs.name_en
+	</if>
+</select>
+</mapper>

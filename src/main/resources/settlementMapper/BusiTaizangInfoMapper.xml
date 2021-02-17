@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.settlementDao.BusiTaizangInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BusiTaizangInfo">
+        <id column="Taizang_id" property="taizangId"/>
+        <result column="ID" property="id"/>
+        <result column="Totalusd" property="Totalusd"/>
+        <result column="YW_Feedback" property="ywFeedback"/>
+        <result column="Cost_verify" property="costVerify"/>
+        <result column="bill_num1" property="billNum1"/>
+        <result column="bill_num2" property="billNum2"/>
+        <result column="bill_num3" property="billNum3"/>
+        <result column="discounts_state" property="discountsState"/>
+        <result column="Abnormal_cost" property="abnormalCost"/>
+        <result column="Remark_kp" property="remarkKp"/>
+        <result column="Abnormal_costbz" property="abnormalCostbz"/>
+        <result column="discounts_user" property="discountsUser"/>
+        <result column="FeeCheckedTime" property="FeeCheckedTime"/>
+        <result column="guazhang_remark" property="guazhangRemark"/>
+        <result column="daofu_fee" property="daofuFee"/>
+        <result column="ISRemark" property="ISRemark"/>
+        <result column="fy_email" property="fyEmail"/>
+        <result column="bill_link2" property="billLink2"/>
+        <result column="SH_INCOMES" property="shIncomes"/>
+        <result column="discounts_time" property="discountsTime"/>
+        <result column="taizang_fp_no" property="taizangFpNo"/>
+        <result column="taizang_Operatetior" property="taizangOperatetior"/>
+        <result column="pay_state" property="payState"/>
+        <result column="discounts_month" property="discountsMonth"/>
+        <result column="USDtoRMB" property="USDtoRMB"/>
+        <result column="taizang_kp_rmb" property="taizangKpRmb"/>
+        <result column="RMBTotalS" property="RMBTotalS"/>
+        <result column="kp_usd" property="kpUsd"/>
+        <result column="taizang_pay_date" property="taizangPayDate"/>
+        <result column="USDTotal" property="USDTotal"/>
+        <result column="chargeUpload_day" property="chargeuploadDay"/>
+        <result column="taizang_other_income" property="taizangOtherIncome"/>
+        <result column="BG_INCOMES" property="bgIncomes"/>
+        <result column="taizang_kp_usd" property="taizangKpUsd"/>
+        <result column="RMBTotal" property="RMBTotal"/>
+        <result column="bill_state2" property="billState2"/>
+        <result column="confirmation_date" property="confirmationDate"/>
+        <result column="overweightcost" property="overweightcost"/>
+        <result column="bxcostfund" property="bxcostfund"/>
+        <result column="EURTotalS" property="EURTotalS"/>
+        <result column="taizang_fp_date" property="taizangFpDate"/>
+        <result column="bill_number" property="billNumber"/>
+        <result column="paychange_link" property="paychangeLink"/>
+        <result column="post_date" property="postDate"/>
+        <result column="other_income" property="otherIncome"/>
+        <result column="kp_eur" property="kpEur"/>
+        <result column="taizang_dp_date" property="taizangDpDate"/>
+        <result column="taizang_exRemark" property="taizangExremark"/>
+        <result column="taizang_IsOverdue" property="taizangIsoverdue"/>
+        <result column="Totalmoney" property="Totalmoney"/>
+        <result column="paychange_state" property="paychangeState"/>
+        <result column="PX_roadincome" property="pxRoadincome"/>
+        <result column="daofu_feeCurrency" property="daofuFeecurrency"/>
+        <result column="HUANXIANG" property="huanxiang"/>
+        <result column="ISsign_agreemen" property="issignAgreemen"/>
+        <result column="bill_link3" property="billLink3"/>
+        <result column="TotalmoneyS" property="TotalmoneyS"/>
+        <result column="taizang_OperationTime" property="taizangOperationtime"/>
+        <result column="bill_state3" property="billState3"/>
+        <result column="discounts" property="discounts"/>
+        <result column="pay_link" property="payLink"/>
+        <result column="EURTotal" property="EURTotal"/>
+        <result column="EURtoRMB" property="EURtoRMB"/>
+        <result column="kp_rmb" property="kpRmb"/>
+        <result column="USDTotalS" property="USDTotalS"/>
+        <result column="Remark_other_income" property="remarkOtherIncome"/>
+        <result column="bill_state" property="billState"/>
+        <result column="taizang_pay" property="taizangPay"/>
+        <result column="taizang_EditSymbol" property="taizangEditsymbol"/>
+        <result column="EUTtoUSD" property="EUTtoUSD"/>
+        <result column="bill_link1" property="billLink1"/>
+        <result column="taizang_kp_eur" property="taizangKpEur"/>
+        <result column="TH_INCOMES" property="thIncomes"/>
+        <result column="bill_state1" property="billState1"/>
+        <result column="Remark_fanli" property="remarkFanli"/>
+        <result column="taizang_remark" property="taizangRemark"/>
+        <result column="Pinup_cost" property="pinupCost"/>
+        <result column="px_Settlement_volumet" property="pxSettlementVolumet"/>
+        <result column="siteIncome" property="siteIncome"/>
+        <result column="client_grade" property="clientGrade"/>
+    </resultMap>
+
+    <select id="getSettlementList" resultType="com.zih.booking.response.SettlementResponse"
+            parameterType="com.zih.booking.request.SettlementRequest">
+        SELECT
+        a.order_number AS orderNumber,
+        a.class_EastAndWest AS classEastAndWest,
+        a.Class_date AS classDate,
+        a.order_ID AS orderId,
+        a.container_boxAmount ascontainerBoxAmount,
+        c.class_bh AS orderClassBh,
+        a.ship_order_unloadAddress AS shipOrderUnloadAddress,
+        a.ship_order_unloadTime AS shipOrderUnloadTime,
+        a.IsConsolidation AS IsConsolidation,
+--         e.xiangxing,
+        d.goods_name AS goodsName,
+--         e.container_no as xianghao,
+        a.order_uploadSite AS orderUploadsite,
+        a.order_unloadSite AS orderUnloadsite,
+        d.goods_CBM AS goodsCBM,
+        a.container_type AS containerType,
+        c.class_ETime AS classEndTime,
+        b.Cost_verify AS costVerify,
+        b.Totalusd,
+        b.TotalmoneyS,
+        b.taizang_fp_no as taizangFpNo,
+        b.bill_state as billState,
+        b.taizang_pay_date as taizangPayDate,
+        b.bill_link1,
+        l.typeid as line_typeid
+        FROM
+        Busi_ShippingOrder a
+        LEFT JOIN Busi_Taizang_Info b ON b.ID = a.order_ID
+        LEFT JOIN Busi_Classes c ON a.class_id = c.class_id
+--         LEFT JOIN Busi_DepartCosts e on a.order_ID=e.order_id
+        LEFT JOIN Busi_ShippingOrder_Goods d on a.order_ID=d.order_ID
+        left JOIN Busi_LineSite l on c.line_id=l.id
+        where  a.IsExamline=1 and  a.client_id in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+            <if test="beginTime!=null and beginTime!=''">
+                and a.Class_date &gt;= #{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and a.Class_date &lt;= #{endTime}
+            </if>
+            <if test="classDate!=null">
+                and DATE_FORMAT(a.Class_date,'%Y-%m-%d') =DATE_FORMAT(#{classDate},'%Y-%m-%d')
+            </if>
+            <if test="orderNumber!=null and orderNumber!=''">
+                and a.order_number like '%' + #{orderNumber}+ '%'
+            </if>
+            <if test="isConsolidation!=null and isConsolidation!=''">
+                and a.IsConsolidation =#{isConsolidation}
+            </if>
+            <if test="classEastAndWest!=null and classEastAndWest!=''">
+                and a.class_EastAndWest =#{classEastAndWest}
+            </if>
+            <if test="containerType!=null and containerType!=''">
+                and a.container_type =#{containerType}
+            </if>
+            <if test="orderUploadSite!=null and orderUploadSite!=''">
+                and a.order_uploadSite =#{orderUploadSite}
+            </if>
+            <if test="orderUnloadSite!=null and orderUnloadSite!=''">
+                and a.order_unloadSite =#{orderUnloadSite}
+            </if>
+            <if test="costVerify!=null and costVerify!=''">
+                and b.Cost_verify =#{costVerify}
+            </if>
+            <if test="billState!=null and billState!=''">
+                and b.bill_state =#{billState}
+            </if>
+            order by a.Class_date desc
+    </select>
+
+    <select id="getByOrderId" resultType="com.zih.booking.vo.TaiZangDetail" parameterType="java.lang.String">
+SELECT
+	a.*, b.*, c.*,d.*,l.*
+	FROM
+        Busi_ShippingOrder a
+        LEFT JOIN Busi_Taizang_Info b ON b.ID = a.order_ID
+        LEFT JOIN Busi_Classes c ON a.class_id = c.class_id
+--         LEFT JOIN Busi_DepartCosts e on a.order_ID=e.order_id
+        LEFT JOIN Busi_ShippingOrder_Goods d on a.order_ID=d.order_ID
+        left JOIN Busi_LineSite l on c.line_id=l.id
+
+ where  a.order_ID = #{orderId};
+</select>
+
+    <select id="getAllExports" resultType="java.util.Map">
+        SELECT
+        a.*, b.*, c.*,d.*, l.*
+        FROM
+        Busi_ShippingOrder a
+        LEFT JOIN Busi_Taizang_Info b ON b.ID = a.order_ID
+        LEFT JOIN Busi_Classes c ON a.class_id = c.class_id
+--         LEFT JOIN Busi_DepartCosts e on a.order_ID=e.order_id
+        LEFT JOIN Busi_ShippingOrder_Goods d on a.order_ID=d.order_ID
+        left JOIN Busi_LineSite l on c.line_id=l.id
+        where  a.IsExamline=1 and   a.client_id in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+        <if test="beginTime!=null and beginTime!=''">
+            and a.Class_date &gt;= #{beginTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and a.Class_date &lt;= #{endTime}
+        </if>
+        <if test="classDate!=null">
+            and DATE_FORMAT(a.Class_date,'%Y-%m-%d') =DATE_FORMAT(#{classDate},'%Y-%m-%d')
+        </if>
+        <if test="orderNumber!=null and orderNumber!=''">
+            and a.order_number like CONCAT('%','#{orderNumber}','%' )
+        </if>
+        <if test="isConsolidation!=null and isConsolidation!=''">
+            and a.IsConsolidation =#{isConsolidation}
+        </if>
+        <if test="classEastAndWest!=null and classEastAndWest!=''">
+            and a.class_EastAndWest =#{classEastAndWest}
+        </if>
+        <if test="containerType!=null and containerType!=''">
+            and a.container_type =#{containerType}
+        </if>
+        <if test="orderUploadSite!=null and orderUploadSite!=''">
+            and a.order_uploadSite =#{orderUploadSite}
+        </if>
+        <if test="orderUnloadSite!=null and orderUnloadSite!=''">
+            and a.order_unloadSite =#{orderUnloadSite}
+        </if>
+        <if test="costVerify!=null and costVerify!=''">
+            and b.Cost_verify =#{costVerify}
+        </if>
+        <if test="billState!=null and billState!=''">
+            and b.bill_state =#{billState}
+        </if>
+
+    </select>
+
+</mapper>

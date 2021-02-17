@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.DocOrderDocumentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.DocOrderDocument">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="file_type_key" property="fileTypeKey"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="pick_goods_timec" property="pickGoodsTimec"/>
+        <result column="pick_goods_contacts" property="pickGoodsContacts"/>
+        <result column="pick_goods_address" property="pickGoodsAddress"/>
+        <result column="container_no" property="containerNo"/>
+        <result column="container_type" property="containerType"/>
+        <result column="sealnumber" property="sealnumber"/>
+<!--        <result column="shipper_exporter" property="shipperExporter"/>-->
+<!--        <result column="consignee" property="consignee"/>-->
+<!--        <result column="notify_party" property="notifyParty"/>-->
+<!--        <result column="goods_description" property="goodsDescription"/>-->
+        <result column="upload_time" property="uploadTime"/>
+        <result column="upload_by" property="uploadBy"/>
+        <result column="upload_dept" property="uploadDept"/>
+        <result column="form_system" property="formSystem"/>
+        <result column="isSubmit" property="isSubmit"/>
+        <result column="isChoose" property="isChoose"/>
+        <result column="isConfirm" property="isConfirm"/>
+        <result column="confirmRemark" property="confirmRemark"/>
+    </resultMap>
+    <sql id="doc">
+        SELECT
+            a.file_type_key AS fileTypeKey,
+            a.file_type_text AS fileTypeText,
+            a.file_from AS fileFrom,
+            a.active_area AS activeArea,
+            b.normal_supply_node AS fileNotice,
+            a.file_type_text_en AS fileTypeTextEn,
+            c.lb_state as lbState,
+            c.lb_letterstate as lbLetterState,
+            c.lb_reason1 as lbFaildReason,
+            c.lb_reason2 as lbLetterFaildReason,
+            c.lb_id as lbId
+        FROM
+        doc_documents_type a
+        LEFT JOIN doc_order b ON a.file_type_key = b.file_type_key and b.order_id=#{orderId}
+        LEFT JOIN lading_bill c ON  c.order_id=b.order_id
+    </sql>
+    <!--单证-->
+    <select id="selectNodeList"   resultType="com.zih.booking.response.DocNode">
+  SELECT
+	a.file_type_key AS fileTypeKey,
+	a.file_type_text AS fileTypeText,
+	a.file_from AS fileFrom,
+	a.active_area AS activeArea,
+	b.normal_supply_node AS fileNotice,
+	a.file_type_text_en AS fileTypeTextEn
+FROM
+doc_documents_type a
+LEFT JOIN doc_order b ON a.file_type_key = b.file_type_key and b.order_id=#{orderId}
+-- LEFT JOIN doc_order_document c ON b.order_id = c.order_id and b.file_type_key=c.file_type_key
+ where a.file_type_key in
+        <foreach collection="fileTypeKey" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+   order by b.normal_supply_node
+    </select>
+    <!--按照固定顺序查询节点-->
+    <select id="selectNewNodeList" resultType="com.zih.booking.response.DocNode">
+        <foreach collection="fileTypeKey" index="index" item="item" open="" separator=" union all " close="">
+            <include refid="doc"></include>
+            where a.file_type_key = #{item}
+        </foreach>
+    </select>
+    <!-- 查询关务所需数据 -->
+    <select id="getCustomsDataList" parameterType="com.zih.booking.request.CustomsRequest" resultType="com.zih.booking.response.CustomsResponse">
+        SELECT t.classDate,a.lclTotalNum,ac.lclCompletedNum,b.fclTotalNum,bc.fclCompletedNum FROM (
+        (SELECT
+        DATE_FORMAT(bc.class_STime, '%Y-%m-%d') as classDate
+        FROM
+        busi_classes bc
+        LEFT JOIN busi_shippingorder bs
+        ON bc.class_ID = bs.class_ID
+        WHERE <![CDATA[(DATE_FORMAT(bc.class_STime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d'))]]>
+        AND <![CDATA[( DATE_FORMAT(bc.class_STime, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d'))]]>
+        AND bc.class_EastAndWest = '1'
+        GROUP BY DATE_FORMAT(bc.class_STime, '%Y-%m-%d')) as t
+        LEFT JOIN
+        (SELECT
+        DATE_FORMAT(bc.class_STime, '%Y-%m-%d') as classDate,
+        COUNT(bs.order_ID) as lclTotalNum
+        FROM
+        busi_classes bc
+        LEFT JOIN busi_shippingorder bs
+        ON bc.class_ID = bs.class_ID
+        WHERE <![CDATA[(DATE_FORMAT(bc.class_STime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d'))]]>
+        AND <![CDATA[( DATE_FORMAT(bc.class_STime, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d'))]]>
+        AND bc.class_EastAndWest = '1'
+        AND bs.IsConsolidation = '1'
+        GROUP BY DATE_FORMAT(bc.class_STime, '%Y-%m-%d')) as a
+        on t.classDate = a.classDate
+        LEFT JOIN
+        (SELECT
+        DATE_FORMAT(bc.class_STime, '%Y-%m-%d') as classDate,
+        COUNT(dod.id) as lclCompletedNum
+        FROM
+        busi_classes bc
+        LEFT JOIN busi_shippingorder bs
+        ON bc.class_ID = bs.class_ID
+        LEFT JOIN doc_order_document dod
+        on bs.order_ID = dod.order_id
+        WHERE <![CDATA[(DATE_FORMAT(bc.class_STime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d'))]]>
+        AND <![CDATA[( DATE_FORMAT(bc.class_STime, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d'))]]>
+        AND bc.class_EastAndWest = '1'
+        AND bs.IsConsolidation = '1'
+        AND dod.file_type_key = 'follow_vehicle_filec'
+        GROUP BY DATE_FORMAT(bc.class_STime, '%Y-%m-%d')) as ac
+        on t.classDate = ac.classDate
+        LEFT JOIN
+        (SELECT
+        DATE_FORMAT(bc.class_STime, '%Y-%m-%d') as classDate,
+        COUNT(bs.order_ID) as fclTotalNum
+        FROM
+        busi_classes bc
+        LEFT JOIN busi_shippingorder bs
+        ON bc.class_ID = bs.class_ID
+        WHERE <![CDATA[(DATE_FORMAT(bc.class_STime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d'))]]>
+        AND <![CDATA[( DATE_FORMAT(bc.class_STime, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d'))]]>
+        AND bc.class_EastAndWest = '1'
+        AND bs.IsConsolidation = '0'
+        GROUP BY DATE_FORMAT(bc.class_STime, '%Y-%m-%d')) as b
+        on t.classDate = b.classDate
+        LEFT JOIN
+        (SELECT
+        DATE_FORMAT(bc.class_STime, '%Y-%m-%d') as classDate,
+        COUNT(dod.id) as fclCompletedNum
+        FROM
+        busi_classes bc
+        LEFT JOIN busi_shippingorder bs
+        ON bc.class_ID = bs.class_ID
+        LEFT JOIN doc_order_document dod
+        on bs.order_ID = dod.order_id
+        WHERE <![CDATA[(DATE_FORMAT(bc.class_STime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d'))]]>
+        AND <![CDATA[( DATE_FORMAT(bc.class_STime, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d'))]]>
+        AND bc.class_EastAndWest = '1'
+        AND bs.IsConsolidation = '0'
+        AND dod.file_type_key = 'follow_vehicle_filec'
+        GROUP BY DATE_FORMAT(bc.class_STime, '%Y-%m-%d')) as bc
+        on t.classDate = bc.classDate
+        )
+    </select>
+    <delete id="deleteByOrderIdAndFileTypeKey" parameterType="String">
+        delete from doc_order_document
+        where order_id = #{orderId} and file_type_key = #{fileTypeKey}
+    </delete>
+    <select id="getDocOrderDocumentById" resultMap="BaseResultMap">
+        SELECT
+            order_id,
+            order_number
+            file_name,
+            file_url,
+            container_no
+        FROM
+            doc_order_document
+        WHERE
+            id = #{id}
+    </select>
+</mapper>

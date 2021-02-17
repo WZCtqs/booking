@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zih.booking.dao.BookingInquiryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zih.booking.model.BookingInquiry">
+        <id column="id" property="id" />
+        <result property="senderProvince" column="sender_province"/>
+        <result property="senderCity" column="sender_city"/>
+        <result property="senderArea" column="sender_area"/>
+        <result column="shipment_place" property="shipmentPlace" />
+        <result column="upload_station" property="uploadStation" />
+        <result property="receiveProvince" column="receive_province"/>
+        <result property="receiveCity" column="receive_city"/>
+        <result property="receiveArea" column="receive_area"/>
+        <result column="receipt_place" property="receiptPlace" />
+        <result column="drop_station" property="dropStation" />
+        <result column="booking_service" property="bookingService" />
+        <result column="is_pick_up" property="isPickUp" />
+        <result column="is_delivery" property="isDelivery" />
+        <result column="is_order_customs" property="isOrderCustoms" />
+        <result column="is_clear_customs" property="isClearCustoms" />
+        <result column="container_belong" property="containerBelong" />
+        <result column="goods_type" property="goodsType" />
+        <result column="container_type" property="containerType" />
+        <result column="container_num" property="containerNum" />
+        <result column="package_type" property="packageType" />
+        <result column="is_stack" property="isStack" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="total_weight" property="totalWeight" />
+        <result column="total_volume" property="totalVolume" />
+        <result column="billable_volume" property="billableVolume" />
+        <result column="inquiry_time" property="inquiryTime" />
+        <result column="client_id" property="clientId" />
+        <result column="del_flag" property="delFlag" />
+        <result column="line_type" property="lineType" />
+        <result column="tx_address" property="txAddress" />
+        <result column="hx_address" property="hxAddress" />
+        <result column="east_or_west" property="eastOrWest" />
+        <result column="upload_station_num" property="uploadStationNum" />
+        <result column="drop_station_num" property="dropStationNum" />
+        <result column="remark" property="remark" />
+        <result column="truck_type" property="truckType" />
+        <result column="limitation" property="limitation" />
+        <result column="delivery_self_type" property="deliverySelfType" />
+        <result column="delivery_type" property="deliveryType" />
+        <result column="distribution_type" property="distributionType" />
+        <result column="client_unit" property="clientUnit" />
+        <result column="goods_fragile" property="goodsFragile" />
+        <result column="goods_general" property="goodsGeneral" />
+        <result column="inquiry_state" property="inquiryState" />
+        <result column="turndown_reason" property="turndownReason" />
+        <result column="order_id" property="orderId" />
+        <result column="valid_date" property="validDate" />
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="com.zih.booking.response.BookingInquiryResponse">
+        <id column="id" property="id" />
+        <result property="senderProvince" column="sender_province"/>
+        <result property="senderCity" column="sender_city"/>
+        <result property="senderArea" column="sender_area"/>
+        <result column="shipment_place" property="shipmentPlace" />
+        <result column="upload_station" property="uploadStation" />
+        <result property="receiveProvince" column="receive_province"/>
+        <result property="receiveCity" column="receive_city"/>
+        <result property="receiveArea" column="receive_area"/>
+        <result column="receipt_place" property="receiptPlace" />
+        <result column="drop_station" property="dropStation" />
+        <result column="booking_service" property="bookingService" />
+        <result column="is_pick_up" property="isPickUp" />
+        <result column="is_delivery" property="isDelivery" />
+        <result column="is_order_customs" property="isOrderCustoms" />
+        <result column="is_clear_customs" property="isClearCustoms" />
+        <result column="container_belong" property="containerBelong" />
+        <result column="goods_type" property="goodsType" />
+        <result column="container_type" property="containerType" />
+        <result column="container_num" property="containerNum" />
+        <result column="package_type" property="packageType" />
+        <result column="is_stack" property="isStack" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="total_weight" property="totalWeight" />
+        <result column="total_volume" property="totalVolume" />
+        <result column="billable_volume" property="billableVolume" />
+        <result column="inquiry_time" property="inquiryTime" />
+        <result column="client_id" property="clientId" />
+        <result column="del_flag" property="delFlag" />
+        <result column="line_type" property="lineType" />
+        <result column="tx_address" property="txAddress" />
+        <result column="hx_address" property="hxAddress" />
+        <result column="east_or_west" property="eastOrWest" />
+        <result column="upload_station_num" property="uploadStationNum" />
+        <result column="drop_station_num" property="dropStationNum" />
+        <result column="remark" property="remark" />
+        <result column="truck_type" property="truckType" />
+        <result column="limitation" property="limitation" />
+        <result column="delivery_self_type" property="deliverySelfType" />
+        <result column="delivery_type" property="deliveryType" />
+        <result column="distribution_type" property="distributionType" />
+        <result column="client_unit" property="clientUnit" />
+        <result column="goods_fragile" property="goodsFragile" />
+        <result column="goods_general" property="goodsGeneral" />
+        <result column="inquiry_state" property="inquiryState" />
+        <result column="turndown_reason" property="turndownReason" />
+        <result column="order_id" property="orderId" />
+        <result column="valid_date" property="validDate" />
+        <result column="job_number" property="jobNumber" />
+    </resultMap>
+    <select id="selectInquiryVo" resultType="com.zih.booking.vo.InquiryVo" >
+        SELECT
+            b.line_type AS lineType,
+            c.code as uploadStationNum,
+            d.code as dropStationNum,
+            b.east_or_west as eastOrWest,
+            b.container_num as containerNum,
+            b.total_weight as totalWeight,
+            b.total_volume as totalVolume,
+            b.billable_volume as billableVolume,
+            b.goods_type as goodsType,
+            b.booking_time_flag as bookingTimeFlag,
+            b.valid_date as validDate,
+            b.inquiry_time as inquiryTime
+        FROM
+            booking_inquiry_result  a
+        LEFT JOIN booking_inquiry b ON a.inquiry_id = b.id
+        left join busi_site c on c.name_cn=a.upload_station or c.name_en = a.upload_station
+        left join busi_site d on d.name_cn=a.drop_station or d.name_en = a.drop_station
+        WHERE a.id=#{inquiryRecordId}
+        limit 1
+    </select>
+
+    <select id="selectList" parameterType="com.zih.booking.request.InquiryListRequest" resultMap="BaseResultMap2">
+     SELECT
+        a.*,
+        k.job_number
+     FROM
+         booking_inquiry  a
+     LEFT JOIN booking_inquiry_goods_details b ON a.id = b.inquiry_id
+     left join booking_inquiry_result c on a.id=c.inquiry_id
+     left join kh_user k on a.kh_id=k.id
+     where a.del_flag=0
+        and (a.client_ID in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        or
+        a.kh_id in
+        <foreach collection="clientIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        )
+        <if test="inquiryDate!=null and inquiryDate!=''">
+            and DATE_FORMAT(a.inquiry_time,'%Y-%m-%d')  = #{inquiryDate}
+        </if>
+        <if test="eastOrWest!=null and eastOrWest!=''">
+            and a.east_or_west = #{eastOrWest}
+        </if>
+        <if test="goodsType!=null and goodsType!=''">
+            and a.goods_type = #{goodsType}
+        </if>
+        <if test="goodsName!=null and goodsName!=''">
+        and  b.goods_name like CONCAT('%','${goodsName}','%' )
+    </if>
+        <if test="inquiryNum!=null and inquiryNum!=''">
+            and  c.inquiry_num like CONCAT('%','${inquiryNum}','%' )
+        </if>
+        <if test="inquiryNumber!=null and inquiryNumber!=''">
+            and  c.inquiry_number like CONCAT('%','${inquiryNumber}','%' )
+        </if>
+        <if test="inquiryState!=null and inquiryState!=''">
+            <if test="inquiryState == '5'.toString()">
+                and a.inquiry_state = '3'
+                and DATE_FORMAT(a.valid_date,'%Y-%m-%d') <![CDATA[<]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+            </if>
+            <if test="inquiryState == '3'.toString()">
+                and a.inquiry_state = #{inquiryState}
+                and DATE_FORMAT(a.valid_date,'%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+            </if>
+            <if test="inquiryState != '3'.toString() and inquiryState != '5'.toString()">
+                and a.inquiry_state = #{inquiryState}
+            </if>
+        </if>
+        <if test="jobNumber!=null and jobNumber!=''">
+            and  k.job_number like CONCAT('%',#{jobNumber},'%' )
+        </if>
+        <if test="senderPlace!=null and senderPlace!=''">
+            and (CONCAT(sender_province,sender_city,sender_area,shipment_place)   like CONCAT('%','${senderPlace}','%' ) or shipment_place like CONCAT('%','${senderPlace}','%' ) or a.upload_station like CONCAT('%','${senderPlace}','%' ) )
+        </if>
+        <if test="receiverPlace!=null and receiverPlace!=''">
+            and (CONCAT(receive_province,receive_city,receive_area,receipt_place)  like CONCAT('%','${receiverPlace}','%' )  or receipt_place like CONCAT('%','${receiverPlace}','%' ) or a.drop_station like CONCAT('%','${receiverPlace}','%' ) )
+
+        </if>
+GROUP BY a.id
+ORDER BY a.inquiry_time desc
+</select>
+
+    <select id="inquiryPirce" parameterType="string" resultType="com.zih.booking.vo.inquiryResultZx" >
+        select inq.id as inquiryId,inq.container_num as containerNum,res.id as inquiryResultId,res.pick_up_fees as pickUpFees,
+        res.railway_fees as railwayFees,res.delivery_fees as deliveryFees,res.pick_up_box_fee as pickUpBoxFee,res.return_box_fee as returnBoxFee
+        from booking_inquiry_result res
+        left join booking_inquiry inq on inq.id = res.inquiry_id
+        where res.id = #{inquiryRecordId}
+    </select>
+
+    <select id="selectZgCount" parameterType="string" resultType="java.lang.Double">
+        SELECT IFNULL(sum(if(b.container_type like "%20%",b.container_boxAmount/2,b.container_boxAmount)   ),  0)
+        from busi_shippingorder b
+        left join busi_classes a on a.class_ID = b.class_ID
+        WHERE a.class_ID= #{classId} and b.IsConsolidation=0 and b.IsExamline in ('0','1','4','5','7','9','10','11','12','13')
+    </select>
+
+    <select id="selectClassZgCount" parameterType="string" resultType="java.lang.Integer">
+        select zxcnt from busi_classes where class_ID = #{classId}
+    </select>
+
+    <update id="updateInquiry" parameterType="com.zih.booking.vo.inquiryResultZx">
+        update booking_inquiry
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="containerNum != null ">container_num = #{containerNum},</if>
+        </trim>
+        where id = #{inquiryId}
+    </update>
+
+    <update id="updateInquiryResult" parameterType="com.zih.booking.vo.inquiryResultZx">
+        update booking_inquiry_result
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pickUpFees != null  and pickUpFees != ''">pick_up_fees = #{pickUpFees},</if>
+            <if test="railwayFees != null  and railwayFees != ''">railway_fees = #{railwayFees},</if>
+            <if test="deliveryFees != null  and deliveryFees != ''">delivery_fees = #{deliveryFees},</if>
+            <if test="pickUpBoxFee != null  and pickUpBoxFee != ''">pick_up_box_fee = #{pickUpBoxFee},</if>
+            <if test="returnBoxFee != null  and returnBoxFee != ''">return_box_fee = #{returnBoxFee},</if>
+        </trim>
+        where id = #{inquiryResultId}
+    </update>
+
+
+</mapper>
